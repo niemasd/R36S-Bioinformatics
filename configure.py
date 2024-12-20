@@ -3,9 +3,13 @@
 Configure R36S-Bioinformatics
 '''
 
+# imports
+from subprocess import run
+
 # main program logic
 def main():
-    pass
+    print("Hello, world!")
+    run(['git', 'pull'])
 
 # run program
 if __name__ == "__main__":
