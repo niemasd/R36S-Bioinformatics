@@ -106,6 +106,7 @@ def main():
     if not args.skip_update:
         pull_latest()
     update_es_systems_cfg()
+    setup_roms_dir()
     if not args.skip_reboot:
         reboot_system()
 
