@@ -12,7 +12,7 @@ import argparse
 VERSION = '0.0.1'
 ES_SYSTEMS_CFG_PATH = Path('/etc/emulationstation/es_systems.cfg')
 ES_SYSTEMS_CFG_BACKUP_PATH = ES_SYSTEMS_CFG_PATH.with_suffix('.r36s-bioinformatics.bak')
-ES_SYSTEMS_CFG_BIOINFORMATICS_SYSTEM_ENTRY = ""
+ES_SYSTEMS_CFG_BIOINFORMATICS_SYSTEM_ENTRY = "\t<system>\n\t\t<name>Bioinformatics</name>\n\t\t<fullname>Bioinformatics</fullname>\n\t\t<path>{roms_dir}/bioinformatics/</path>\n\t\t<extension>.py</extension>\n\t\t<command>python3 %ROM%</command>\n\t\t<platform>bioinformatics</platform>\n\t\t<theme>bioinformatics</theme>\n\t</system>"
 
 # print greeting message
 def greet():
@@ -53,7 +53,7 @@ def update_es_systems_cfg():
         with open(ES_SYSTEMS_CFG_BACKUP_PATH, 'w') as f:
             f.write(cfg_data)
         with open(ES_SYSTEMS_CFG_PATH, 'w') as f:
-            f.write(cfg_data.replace('</systemList>','%s</systemList>' % ES_SYSTEMS_CFG_BIOINFORMATICS_SYSTEM_ENTRY))
+            f.write(cfg_data.replace('</systemList>','%s\n</systemList>' % ES_SYSTEMS_CFG_BIOINFORMATICS_SYSTEM_ENTRY))
         print("Updated successfully.")
 
 # main program logic
