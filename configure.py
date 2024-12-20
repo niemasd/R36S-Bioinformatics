@@ -88,7 +88,7 @@ def get_path_size(path):
     else:
         total = 0
         for p in path.rglob('*'):
-            if fn.is_file():
+            if p.is_file():
                 total += p.stat().st_size
         return total
 
