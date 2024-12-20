@@ -6,6 +6,7 @@ Configure R36S-Bioinformatics
 # imports
 from pathlib import Path
 from subprocess import run
+from sys import stdout
 import argparse
 
 # constants
@@ -16,13 +17,17 @@ ES_SYSTEMS_CFG_BIOINFORMATICS_SYSTEM_ENTRY = "\t<system>\n\t\t<name>Bioinformati
 DEPS_LINUX = ['cmake', 'g++', 'git', 'libc6-dev', 'libsdl2-dev', 'libsdl2-ttf-dev', 'libstdc++-9-dev', 'linux-libc-dev', 'make', 'ninja-build', 'python3']
 DEPS_PYTHON = ['prompt_toolkit', 'pysdl2', 'pysdl2-dll']
 
+# print to log
+def print_log(s='', end='\n', file=stdout):
+    print(s, end=end, file=file); file.flush()
+
 # print greeting message
 def greet():
-    print("=== R36S-Bioinformatics Configure v%s ===" % VERSION)
+    print_log("=== R36S-Bioinformatics Configure v%s ===" % VERSION)
 
 # print an error message and exit
 def error(s='', end='\n', returncode=1):
-    print(s, end=end); exit(returncode)
+    print_log(s, end=end); exit(returncode)
 
 # parse user args
 def parse_args():
@@ -34,43 +39,43 @@ def parse_args():
 
 # pull the latest updates from GitHub
 def pull_latest():
-    print("Checking for updates...", end=' ')
+    print_log("Checking for updates...", end=' ')
     proc = run(['git', 'pull'], capture_output=True)
     if proc.returncode != 0:
         error("Failed to check for updates via `git pull`. Make sure your R36S has internet connection.")
     if 'Updating' in proc.stdout.decode():
-        print("Updated successfully. Rerunning...\n")
+        print_log("Updated successfully. Rerunning...\n")
         run(['python3', __file__, '--skip_update'])
         exit()
     else:
-        print("No updates available.")
+        print_log("No updates available.")
 
 # update the `/etc/emulationstation/es_systems.cfg` file
 def update_es_systems_cfg():
-    print("Checking if %s needs to be updated..." % ES_SYSTEMS_CFG_PATH, end=' ')
+    print_log("Checking if %s needs to be updated..." % ES_SYSTEMS_CFG_PATH, end=' ')
     with open(ES_SYSTEMS_CFG_PATH) as f:
         cfg_data = f.read()
     if ES_SYSTEMS_CFG_BIOINFORMATICS_SYSTEM_ENTRY in cfg_data:
-        print("No updates needed.")
+        print_log("No updates needed.")
     else:
         with open(ES_SYSTEMS_CFG_BACKUP_PATH, 'w') as f:
             f.write(cfg_data)
         with open(ES_SYSTEMS_CFG_PATH, 'w') as f:
             f.write(cfg_data.replace('</systemList>','%s\n</systemList>' % ES_SYSTEMS_CFG_BIOINFORMATICS_SYSTEM_ENTRY))
-        print("Updated successfully.")
+        print_log("Updated successfully.")
 
 # install dependencies
 def install_deps():
-    print("Installing Linux dependencies...", end=' ')
+    print_log("Installing Linux dependencies...", end=' ')
     proc = run(['sudo', 'apt-get', 'install', '--reinstall'] + DEPS_LINUX, capture_output=True)
     if proc.returncode == 0:
-        print("done")
+        print_log("done")
     else:
         error("FAILED!")
-    print("Installing Python dependencies...", end=' ')
+    print_log("Installing Python dependencies...", end=' ')
     proc = run(['python3', '-m', 'pip', 'install', '--upgrade', '--no-cache-dir'] + DEPS_PYTHON, capture_output=True)
     if proc.returncode == 0:
-        print("done")
+        print_log("done")
     else:
         error("FAILED!")
 
@@ -92,7 +97,7 @@ def setup_roms_dir():
     roms_path_size, roms_path = max((get_path_size(path), path) for path in [Path('/roms'), Path('/roms2')])
     if roms_path_size == 0:
         error("Both `/roms` and `/roms2` are empty or non-existent")
-    print(roms_path)
+    print_log(roms_path)
     exit() # TODO
 
 # reboot system
