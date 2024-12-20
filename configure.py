@@ -103,8 +103,9 @@ def setup_roms_dir():
     print_log("Setting up `%s`..." % bioinformatics_path, end=' ')
     bioinformatics_path.mkdir(parents=False, exist_ok=True)
     with open(bioinformatics_path / 'configure.py', 'w') as f:
-        print_log("from subprocess import run; run(['python3', '%s'])\n" % Path(__file__).resolve())
+        f.write("from subprocess import run; run(['python3', '%s'])\n" % Path(__file__).resolve())
     print_log("done")
+    exit() # TODO
 
 # reboot system
 def reboot_system():
