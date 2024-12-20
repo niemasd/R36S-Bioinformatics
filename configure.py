@@ -4,13 +4,14 @@ Configure R36S-Bioinformatics
 '''
 
 # imports
-from xml.etree import ElementTree
 from pathlib import Path
 from subprocess import run
 import argparse
 
 # constants
 VERSION = '0.0.1'
+ES_SYSTEMS_CFG_PATH = Path('/etc/emulationstation/es_systems.cfg')
+ES_SYSTEMS_CFG_BACKUP_PATH = ES_SYSTEMS_CFG_PATH.with_suffix('.r36s-bioinformatics.bak')
 
 # print greeting message
 def greet():
@@ -42,9 +43,15 @@ def pull_latest():
 
 # update the `/etc/emulationstation/es_systems.cfg` file
 def update_es_systems_cfg():
-    es_systems_cfg_path = Path('/etc/emulationstation/es_systems.cfg')
-    xml_root = ElementTree.parse(es_systems_cfg_path).getroot()
-    print(xml_root)
+    print("Checking if %s needs to be updated..." % ES_SYSTEMS_CFG_PATH, end=' ')
+    with open(ES_SYSTEMS_CFG_PATH) as f:
+        cfg_data = f.read()
+    if '<name>R36S-Bioinformatics</name>' in cfg_data:
+        print("No updates needed.")
+    else:
+        with open(ES_SYSTEMS_CFG_BACKUP_PATH, 'w') as f:
+            f.write(cfg_data)
+        print("Updated successfully.")
 
 # main program logic
 def main():
