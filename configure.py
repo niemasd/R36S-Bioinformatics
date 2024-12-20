@@ -17,7 +17,7 @@ def pull_latest():
     proc = run(command, capture_output=True)
     if proc.returncode != 0:
         error("Failed to check for updates via `git pull`. Make sure your R36S has internet connection.")
-    print(proc.returncode)
+    print(proc.stdout)
 
 # main program logic
 def main():
