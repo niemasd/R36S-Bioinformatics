@@ -4,6 +4,7 @@ Configure R36S-Bioinformatics
 '''
 
 # imports
+from pathlib import Path
 from subprocess import run
 import argparse
 
@@ -39,7 +40,9 @@ def pull_latest():
 
 # update the `/etc/emulationstation/es_systems.cfg` file
 def update_es_systems_cfg():
-    print("TODO")
+    es_systems_cfg_path = Path('/etc/emulationstation/es_systems.cfg')
+    with open(es_systems_cfg_path, 'r') as f:
+        print(f.read())
 
 # main program logic
 def main():
