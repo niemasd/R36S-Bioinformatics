@@ -26,6 +26,7 @@ def error(s='', end='\n', returncode=1):
 def parse_args():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('--skip_update', action='store_true', help="Skip Update (git pull)")
+    parser.add_argument('--skip_reboot', action='store_true', help="Skip System Reboot")
     args = parser.parse_args()
     return args
 
@@ -56,6 +57,10 @@ def update_es_systems_cfg():
             f.write(cfg_data.replace('</systemList>','%s\n</systemList>' % ES_SYSTEMS_CFG_BIOINFORMATICS_SYSTEM_ENTRY))
         print("Updated successfully.")
 
+# reboot system
+def reboot_system():
+    run(['sudo', 'reboot'])
+
 # main program logic
 def main():
     greet()
@@ -63,6 +68,8 @@ def main():
     if not args.skip_update:
         pull_latest()
     update_es_systems_cfg()
+    if not args.skip_reboot:
+        reboot_system()
 
 # run program
 if __name__ == "__main__":
