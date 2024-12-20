@@ -32,7 +32,7 @@ def pull_latest():
     if proc.returncode != 0:
         error("Failed to check for updates via `git pull`. Make sure your R36S has internet connection.")
     if 'Updating' in proc.stdout.decode():
-        print("Updated successfully. Rerunning...")
+        print("Updated successfully. Rerunning...\n")
         run(['python3', __file__, '--skip_update'])
     else:
         print("No updates available.")
