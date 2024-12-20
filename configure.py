@@ -35,6 +35,7 @@ def pull_latest():
     if 'Updating' in proc.stdout.decode():
         print("Updated successfully. Rerunning...\n")
         run(['python3', __file__, '--skip_update'])
+        exit()
     else:
         print("No updates available.")
 
