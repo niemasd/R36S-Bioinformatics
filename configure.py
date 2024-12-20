@@ -13,6 +13,8 @@ VERSION = '0.0.1'
 ES_SYSTEMS_CFG_PATH = Path('/etc/emulationstation/es_systems.cfg')
 ES_SYSTEMS_CFG_BACKUP_PATH = ES_SYSTEMS_CFG_PATH.parent / (ES_SYSTEMS_CFG_PATH.name + '.r36s-bioinformatics.bak')
 ES_SYSTEMS_CFG_BIOINFORMATICS_SYSTEM_ENTRY = "\t<system>\n\t\t<name>Bioinformatics</name>\n\t\t<fullname>Bioinformatics</fullname>\n\t\t<path>{roms_dir}/bioinformatics/</path>\n\t\t<extension>.py</extension>\n\t\t<command>python3 %ROM%</command>\n\t\t<platform>bioinformatics</platform>\n\t\t<theme>bioinformatics</theme>\n\t</system>"
+DEPS_LINUX = ['cmake', 'g++', 'git', 'libc6-dev', 'libsdl2-dev', 'libsdl2-ttf-dev', 'libstdc++-9-dev', 'linux-libc-dev', 'make', 'ninja-build', 'python3']
+DEPS_PYTHON = ['prompt_toolkit', 'pysdl2', 'pysdl2-dll']
 
 # print greeting message
 def greet():
@@ -56,6 +58,42 @@ def update_es_systems_cfg():
         with open(ES_SYSTEMS_CFG_PATH, 'w') as f:
             f.write(cfg_data.replace('</systemList>','%s\n</systemList>' % ES_SYSTEMS_CFG_BIOINFORMATICS_SYSTEM_ENTRY))
         print("Updated successfully.")
+
+# install dependencies
+def install_deps():
+    print("Installing Linux dependencies...", end=' ')
+    proc = run(['sudo', 'apt-get', 'install', '--reinstall'] + DEPS_LINUX, capture_output=True)
+    if proc.returncode == 0:
+        print("done")
+    else:
+        error("FAILED!")
+    print("Installing Python dependencies...", end=' ')
+    proc = run(['python3', '-m', 'pip', 'install', '--upgrade', '--no-cache-dir'] + DEPS_PYTHON, capture_output=True)
+    if proc.returncode == 0:
+        print("done")
+    else:
+        error("FAILED!")
+
+# get the size of a `Path`
+def get_path_size(path):
+    if not path.exists():
+        return 0
+    elif path.is_file():
+        return path.stat().st_size
+    else:
+        total = 0
+        for p in path.rglob('*'):
+            if fn.is_file():
+                total += p.stat().st_size
+        return total
+
+# set up `/roms` (or `/roms2`) directory
+def setup_roms_dir():
+    roms_path_size, roms_path = max((get_path_size(path), path) for path in [Path('/roms'), Path('/roms2')])
+    if roms_path_size == 0:
+        error("Both `/roms` and `/roms2` are empty or non-existent")
+    print(roms_path)
+    exit() # TODO
 
 # reboot system
 def reboot_system():
