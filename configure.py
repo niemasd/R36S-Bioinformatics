@@ -7,6 +7,13 @@ Configure R36S-Bioinformatics
 from subprocess import run
 import argparse
 
+# constants
+VERSION = '0.0.1'
+
+# print greeting message
+def greet():
+    print("=== R36S-Bioinformatics Configure v%s ===" % VERSION)
+
 # print an error message and exit
 def error(s='', end='\n', returncode=1):
     print(s, end=end); exit(returncode)
@@ -20,18 +27,19 @@ def parse_args():
 
 # pull the latest updates from GitHub
 def pull_latest():
-    command = ['git', 'pull']
     print("Checking for updates...", end=' ')
-    proc = run(command, capture_output=True)
+    proc = run(['git', 'pull'], capture_output=True)
     if proc.returncode != 0:
         error("Failed to check for updates via `git pull`. Make sure your R36S has internet connection.")
     if 'Updating' in proc.stdout.decode():
         print("Updated successfully. Rerunning...")
+        run(['python3', __file__])
     else:
         print("No updates available.")
 
 # main program logic
 def main():
+    greet()
     args = parse_args()
     if not args.skip_update:
         pull_latest()
