@@ -94,10 +94,15 @@ def get_path_size(path):
 
 # set up `/roms` (or `/roms2`) directory
 def setup_roms_dir():
+    print_log("Searching for roms directory...", end=' ')
     roms_path_size, roms_path = max((get_path_size(path), path) for path in [Path('/roms'), Path('/roms2')])
     if roms_path_size == 0:
         error("Both `/roms` and `/roms2` are empty or non-existent")
-    print_log(roms_path)
+    print_log("done")
+    bioinformatics_path = roms_path / 'bioinformatics'
+    print_log("Setting up `%s`..." % bioinformatics_path, end=' ')
+    bioinformatics_path.mkdir(parents=False, exist_ok=True)
+    print_log("done")
     exit() # TODO
 
 # reboot system
