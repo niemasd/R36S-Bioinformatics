@@ -37,12 +37,17 @@ def pull_latest():
     else:
         print("No updates available.")
 
+# update the `/etc/emulationstation/es_systems.cfg` file
+def update_es_systems_cfg():
+    print("TODO")
+
 # main program logic
 def main():
     greet()
     args = parse_args()
     if not args.skip_update:
         pull_latest()
+    update_es_systems_cfg()
 
 # run program
 if __name__ == "__main__":
