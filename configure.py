@@ -63,8 +63,8 @@ def parse_args():
 
 # pull the latest updates from GitHub
 def pull_latest():
-    print_log("Checking for updates...", end=' ')
-    proc = run(['git', 'pull'], capture_output=True)
+    print_log("Checking for updates...")
+    proc = run(['git', 'pull'])
     if proc.returncode != 0:
         error("Failed to check for updates via `git pull`. Make sure your R36S has internet connection.")
     if 'Updating' in proc.stdout.decode():
