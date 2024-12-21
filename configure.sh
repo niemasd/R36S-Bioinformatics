@@ -18,7 +18,7 @@ echo "=== R36S-Bioinformatics Configure v$VERSION ==="
 
 # git pull the latest version
 echo "Checking for updates to configuration script..."
-if [[ "$(git pull)" == "Already up to date." ]] ; then
+if [[ "$(git pull | tr -d '\n')" == "Already up to date." ]] ; then
     echo "No updates available."
 else
     echo "Updated successfully"
