@@ -28,6 +28,6 @@ fi
 # finish up
 KILL_PID=$(pidof rg351p-js2xbox)
 if [[ -z "${KILL_PID}" ]] ; then
-    sudo kill $(pidof rg351p-js2xbox)
+    echo sudo kill $(pidof rg351p-js2xbox)
 fi
 sudo rm /dev/input/by-path/platform-odroidgo2-joypad-event-joystick
