@@ -14,7 +14,7 @@ VERSION = '0.0.1'
 ES_SYSTEMS_CFG_PATH = Path('/etc/emulationstation/es_systems.cfg')
 ES_SYSTEMS_CFG_BACKUP_PATH = ES_SYSTEMS_CFG_PATH.parent / (ES_SYSTEMS_CFG_PATH.name + '.r36s-bioinformatics.bak')
 ES_SYSTEMS_CFG_BIOINFORMATICS_SYSTEM_ENTRY = "\t<system>\n\t\t<name>Bioinformatics</name>\n\t\t<fullname>Bioinformatics</fullname>\n\t\t<path>{roms_dir}/bioinformatics/</path>\n\t\t<extension>.py</extension>\n\t\t<command>python3 %ROM%</command>\n\t\t<platform>bioinformatics</platform>\n\t\t<theme>bioinformatics</theme>\n\t</system>"
-DEPS_LINUX = ['cmake', 'g++', 'git', 'libc6-dev', 'libsdl2-dev', 'libsdl2-ttf-dev', 'libstdc++-9-dev', 'linux-libc-dev', 'make', 'ninja-build', 'python3']
+DEPS_LINUX = ['cmake', 'g++', 'git', 'libc6-dev', 'libsdl2-dev', 'libsdl2-ttf-dev', 'libstdc++-9-dev', 'linux-libc-dev', 'make', 'ninja-build', 'python3', 'python3-pip']
 DEPS_PYTHON = ['prompt_toolkit', 'pysdl2', 'pysdl2-dll']
 
 # print to log
