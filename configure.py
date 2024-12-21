@@ -83,7 +83,7 @@ def update_es_systems_cfg(roms_path):
         with open(ES_SYSTEMS_CFG_BACKUP_PATH, 'w') as f:
             f.write(cfg_data)
         with open(ES_SYSTEMS_CFG_PATH, 'w') as f:
-            f.write(cfg_data.replace('</systemList>','%s\n</systemList>' % ES_SYSTEMS_CFG_BIOINFORMATICS_SYSTEM_ENTRY.replace('{roms_dir}',roms_path)))
+            f.write(cfg_data.replace('</systemList>','%s\n</systemList>' % ES_SYSTEMS_CFG_BIOINFORMATICS_SYSTEM_ENTRY.replace('{roms_dir}',str(roms_path))))
         print_log("Updated successfully.")
 
 # install dependencies
@@ -125,8 +125,8 @@ def main():
     roms_path = find_roms_path()
     update_es_systems_cfg(roms_path)
     setup_roms_dir(roms_path)
-    #if not args.skip_reboot:
-    #    reboot_system()
+    if not args.skip_reboot:
+        reboot_system()
 
 # run program
 if __name__ == "__main__":
