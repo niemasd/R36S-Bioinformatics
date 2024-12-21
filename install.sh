@@ -39,7 +39,7 @@ fi
 # install apps
 echo "Installing R36S-Bioinformatics apps..."
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-echo $SCRIPT_DIR
+rm -rf "$ROMS/bioinformatics" && cp -r "$SCRIPT_DIR/apps" "$ROMS/bioinformatics"
 
 # finish up
 echo "R36S-Bioinformatics successfully configured :-)"
