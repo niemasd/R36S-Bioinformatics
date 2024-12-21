@@ -6,7 +6,7 @@ Configure R36S-Bioinformatics
 # imports
 from pathlib import Path
 from subprocess import run
-from sys import stdout
+from sys import argv, stdout
 import argparse
 
 # constants
@@ -55,6 +55,7 @@ def find_roms_path():
 def parse_args():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('--skip_update', action='store_true', help="Skip Update (git pull)")
+    parser.add_argument('--skip_deps', action='store_true', help="Skip Installing Dependencies")
     parser.add_argument('--skip_reboot', action='store_true', help="Skip System Reboot")
     args = parser.parse_args()
     return args
@@ -67,7 +68,7 @@ def pull_latest():
         error("Failed to check for updates via `git pull`. Make sure your R36S has internet connection.")
     if 'Updating' in proc.stdout.decode():
         print_log("Updated successfully. Rerunning...\n")
-        run(['python3', __file__, '--skip_update'])
+        run(['python3', __file__, '--skip_update'] + [a for a in argv if a != '--skip_update'])
         exit()
     else:
         print_log("No updates available.")
@@ -121,7 +122,8 @@ def main():
     args = parse_args()
     if not args.skip_update:
         pull_latest()
-    install_deps()
+    if not args.skip_deps:
+        install_deps()
     roms_path = find_roms_path()
     update_es_systems_cfg(roms_path)
     setup_roms_dir(roms_path)
