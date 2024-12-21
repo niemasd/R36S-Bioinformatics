@@ -13,19 +13,27 @@ sudo rg351p-js2xbox --silent -t oga_joypad &
 sudo ln -s /dev/input/event3 /dev/input/by-path/platform-odroidgo2-joypad-event-joystick
 sudo chmod 777 /dev/input/by-path/platform-odroidgo2-joypad-event-joystick
 
-# run configuration script
+# greet user
 echo "=== R36S-Bioinformatics Configure v$VERSION ==="
+
+# git pull the latest version
 echo "Checking for updates to configuration script..."
 GIT_UPDATED=$(git pull | grep "Updating")
 if [[ -z "${GIT_UPDATED}" ]] ; then
     echo "No updates available."
 else
-    echo "Updated successfully. Rerunning..."
+    echo "Updated successfully. Please rerun configuration script."
     bash $0
     exit 0
 fi
 
+# install dependencies
+echo "Installing Linux dependencies..."
+(sudo apt-get update && sudo apt-get install -y $DEPS_LINUX) || (echo "Failed to install Linux dependencies" && exit 1)
+
 # finish up
+echo "R36S-Bioinformatics successfully configured :-)"
+sleep 5
 KILL_PID=$(pidof rg351p-js2xbox)
 if [[ ! -z "${KILL_PID}" ]] ; then
     sudo kill $(pidof rg351p-js2xbox)
