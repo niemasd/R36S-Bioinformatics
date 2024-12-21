@@ -27,8 +27,8 @@ def greet():
     print_log("=== R36S-Bioinformatics Configure v%s ===" % VERSION)
 
 # print an error message and exit
-def error(s='', end='\n', returncode=1):
-    print_log('ERROR: %s' % s, end=end); exit(returncode)
+def error(s='', end='\n', returncode=1, delay=5):
+    print_log('ERROR: %s' % s, end=end); sleep(delay); exit(returncode)
 
 # get the size of a `Path`
 def get_path_size(path):
