@@ -8,7 +8,7 @@ if [[ -z "${INSTALL_SH}" ]] ; then
     echo "ERROR: R36S-Bioinformatics/install.sh not found"
     sleep 5
 else
-    echo "Running install script: $INSTALL_SH" && echo "" && cd $(echo $INSTALL_SH | rev | cut -d'/' -f2- | rev) && git pull && "$INSTALL_SH"
+    echo "Running install script: $INSTALL_SH" #&& echo "" && cd $(echo $INSTALL_SH | rev | cut -d'/' -f2- | rev) && git pull && "$INSTALL_SH"
 fi
 sudo kill $(pidof rg351p-js2xbox)
 sudo rm /dev/input/by-path/platform-odroidgo2-joypad-event-joystick
