@@ -1,10 +1,16 @@
 #!/usr/bin/env bash
-# app to update apps
+# app to update dependencies + apps
 
 # set things up
 sudo rg351p-js2xbox --silent -t oga_joypad &
 sudo ln -s /dev/input/event3 /dev/input/by-path/platform-odroidgo2-joypad-event-joystick
 sudo chmod 777 /dev/input/by-path/platform-odroidgo2-joypad-event-joystick
+
+# update Linux and Python dependencies
+echo "Updating Linux dependencies..."
+sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get autoremove -y && sudo apt-get clean
+echo "Updating Python dependencies..."
+python3 -m pip list --outdated | awk 'NR>2 {print $1}' | xargs -n1 python3 -m pip install --upgrade --no-cache-dir
 
 # find R36S-Bioinformatics repo path
 echo "Finding R36S-Bioinformatics repo in home directory (~)..."
