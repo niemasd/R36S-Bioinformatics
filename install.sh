@@ -24,7 +24,6 @@ echo "Installing Python dependencies..."
 
 # finish up
 echo "R36S-Bioinformatics successfully configured :-)"
-sleep 5
 KILL_PID=$(pidof rg351p-js2xbox)
 if [[ ! -z "${KILL_PID}" ]] ; then
     sudo kill $(pidof rg351p-js2xbox)
