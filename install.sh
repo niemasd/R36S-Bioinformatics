@@ -36,6 +36,11 @@ else
     python3 -c "f = open('$ES_SYSTEMS_CFG_PATH'); cfg_data = f.read(); f.close(); f = open('$ES_SYSTEMS_CFG_PATH','w'); f.write(cfg_data.replace('</systemList>','%s\n</systemList>' % '$ES_SYSTEMS_CFG_BIOINFORMATICS_SYSTEM_ENTRY'.replace('{roms_dir}','$ROMS'))); f.close()"
 fi
 
+# install apps
+echo "Installing R36S-Bioinformatics apps..."
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+echo $SCRIPT_DIR
+
 # finish up
 echo "R36S-Bioinformatics successfully configured :-)"
 echo "Rebooting system in 5 seconds..."
