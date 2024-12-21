@@ -30,9 +30,9 @@ fi
 
 # install dependencies
 echo "Installing Linux dependencies..."
-(sudo apt-get update && sudo apt-get install -y --reinstall $DEPS_LINUX) || (echo "Failed to install Linux dependencies" && sleep 5 && exit 1)
+#(sudo apt-get update && sudo apt-get install -y --reinstall $DEPS_LINUX) || (echo "Failed to install Linux dependencies" && sleep 5 && exit 1)
 echo "Installing Python dependencies..."
-(python3 -m pip install --upgrade --no-cache-dir $DEPS_PYTHON) || (echo "Failed to install Python dependencies" && sleep 5 && exit 1)
+#(python3 -m pip install --upgrade --no-cache-dir $DEPS_PYTHON) || (echo "Failed to install Python dependencies" && sleep 5 && exit 1)
 
 # finish up
 echo "R36S-Bioinformatics successfully configured :-)"
@@ -42,3 +42,8 @@ if [[ ! -z "${KILL_PID}" ]] ; then
     sudo kill $(pidof rg351p-js2xbox)
 fi
 sudo rm /dev/input/by-path/platform-odroidgo2-joypad-event-joystick
+
+# reboot system
+echo "Rebooting system in 5 seconds..."
+sleep 5
+#sudo reboot
