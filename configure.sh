@@ -16,16 +16,6 @@ sudo chmod 777 /dev/input/by-path/platform-odroidgo2-joypad-event-joystick
 # greet user
 echo "=== R36S-Bioinformatics Configure v$VERSION ==="
 
-# git pull the latest version
-echo "Checking for updates to configuration script..."
-if [[ "$(git pull | tr -d '\n')" == "Already up to date." ]] ; then
-    echo "No updates available."
-else
-    echo "Updated successfully"
-    bash $0
-    exit 0
-fi
-
 # install dependencies
 echo "Installing Linux dependencies..."
 #(sudo apt-get update && sudo apt-get install -y --reinstall $DEPS_LINUX) || (echo "Failed to install Linux dependencies" && sleep 5 && exit 1)

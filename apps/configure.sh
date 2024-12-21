@@ -8,7 +8,7 @@ if [[ -z "${CONFIG_SH}" ]] ; then
     echo "ERROR: R36S-Bioinformatics/configure.sh not found"
     sleep 5
 else
-    echo "Running configuration script: $CONFIG_SH" && echo "" && "$CONFIG_SH"
+    echo "Running configuration script: $CONFIG_SH" && echo "" && cd $(echo $CONFIG_SH | rev | cut -d'/' -f2- | rev) && git pull && "$CONFIG_SH"
 fi
 sudo kill $(pidof rg351p-js2xbox)
 sudo rm /dev/input/by-path/platform-odroidgo2-joypad-event-joystick
