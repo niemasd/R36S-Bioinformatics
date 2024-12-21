@@ -90,7 +90,7 @@ def update_es_systems_cfg(roms_path):
 def install_deps():
     print_log("Installing Linux dependencies...")
     proc = run(['sudo', 'apt-get', 'update', '-y'])
-    proc = run(['sudo', 'apt-get', 'install', '--reinstall'] + DEPS_LINUX)
+    proc = run(['sudo', 'apt-get', 'install', '--reinstall', '-y'] + DEPS_LINUX)
     if proc.returncode == 0:
         print_log("Successfully installed Linux dependencies.")
     else:
