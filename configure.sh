@@ -18,14 +18,12 @@ echo "=== R36S-Bioinformatics Configure v$VERSION ==="
 
 # git pull the latest version
 echo "Checking for updates to configuration script..."
-GIT_UPDATED=0 && git remote update && git status -uno | grep -q 'Your branch is behind' && changed=1
-if [[ $GIT_UPDATED = 1 ]] ; then
-    git pull
+if [[ "$(git pull)" == "Already up to date." ]] ; then
+    echo "No updates available."
+else
     echo "Updated successfully"
     bash $0
     exit 0
-else
-    echo "No updates available."
 fi
 
 # install dependencies
