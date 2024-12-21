@@ -33,7 +33,7 @@ if grep -q '<name>Bioinformatics</name>' "$ES_SYSTEMS_CFG_PATH" ; then
 else
     echo "Updating es_systems.cfg..."
     cp $ES_SYSTEMS_CFG_PATH $ES_SYSTEMS_CFG_BACKUP_PATH
-    python3 -c "f = open('$ES_SYSTEMS_CFG_PATH'); cfg_data = f.read(); f.close(); f = open('$ES_SYSTEMS_CFG_PATH','w'); f.write(cfg_data.replace('</systemList>','%s\n</systemList>' % ES_SYSTEMS_CFG_BIOINFORMATICS_SYSTEM_ENTRY.replace('{roms_dir}',str(roms_path)))); f.close()"
+    python3 -c "f = open('$ES_SYSTEMS_CFG_PATH'); cfg_data = f.read(); f.close(); f = open('$ES_SYSTEMS_CFG_PATH','w'); f.write(cfg_data.replace('</systemList>','%s\n</systemList>' % '$ES_SYSTEMS_CFG_BIOINFORMATICS_SYSTEM_ENTRY'.replace('{roms_dir}','$ROMS'))); f.close()"
 fi
 
 # finish up
