@@ -8,11 +8,6 @@ ES_SYSTEMS_CFG_BACKUP_PATH="$ES_SYSTEMS_CFG_PATH.r36s-bioinformatics.bak"
 DEPS_LINUX='cmake g++ git libc6-dev libsdl2-dev libsdl2-ttf-dev libstdc++-9-dev linux-libc-dev make ninja-build python3 python3-pip'
 DEPS_PYTHON='prompt_toolkit pysdl2 pysdl2-dll'
 
-# set things up
-sudo rg351p-js2xbox --silent -t oga_joypad &
-sudo ln -s /dev/input/event3 /dev/input/by-path/platform-odroidgo2-joypad-event-joystick
-sudo chmod 777 /dev/input/by-path/platform-odroidgo2-joypad-event-joystick
-
 # greet user
 echo "=== R36S-Bioinformatics Configure v$VERSION ==="
 
@@ -24,13 +19,6 @@ echo "Installing Python dependencies..."
 
 # finish up
 echo "R36S-Bioinformatics successfully configured :-)"
-KILL_PID=$(pidof rg351p-js2xbox)
-if [[ ! -z "${KILL_PID}" ]] ; then
-    sudo kill $(pidof rg351p-js2xbox)
-fi
-sudo rm /dev/input/by-path/platform-odroidgo2-joypad-event-joystick
-
-# reboot system
 echo "Rebooting system in 5 seconds..."
 sleep 5
 #sudo reboot
