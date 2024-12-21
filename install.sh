@@ -18,7 +18,12 @@ echo "Installing Python dependencies..."
 #(python3 -m pip install --upgrade --no-cache-dir $DEPS_PYTHON) || (echo "Failed to install Python dependencies" && sleep 5 && exit 1)
 
 # find roms path
-python3 -c "from pathlib import Path; print(max((get_path_size(path), path) for path in [Path('/roms'), Path('/roms2')])[1])"
+if [[ "$(ls /roms | wc -l)" -ge "$(ls /roms2 | wc -l)" ]] ; then
+    ROMS='/roms'
+else
+    ROMS='/roms2'
+fi
+echo "ROMS:" $ROMS
 
 # finish up
 echo "R36S-Bioinformatics successfully configured :-)"
