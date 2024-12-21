@@ -5,6 +5,7 @@ File browser app
 from common import select_file, view_file_info
 from pathlib import Path
 if __name__ == "__main__":
+    print("RUNNING FILE BROWSER APP")
     curr_path = Path('/')
     while True:
         result = select_file(curr_path=curr_path)
