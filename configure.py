@@ -29,6 +29,28 @@ def greet():
 def error(s='', end='\n', returncode=1):
     print_log(s, end=end); exit(returncode)
 
+# get the size of a `Path`
+def get_path_size(path):
+    if not path.exists():
+        return 0
+    elif path.is_file():
+        return path.stat().st_size
+    else:
+        total = 0
+        for p in path.rglob('*'):
+            if p.is_file():
+                total += p.stat().st_size
+        return total
+
+# search for roms directory (either `/roms` or `/roms2`)
+def find_roms_path():
+    print_log("Searching for roms directory...", end=' ')
+    roms_path_size, roms_path = max((get_path_size(path), path) for path in [Path('/roms'), Path('/roms2')])
+    if roms_path_size == 0:
+        error("Both `/roms` and `/roms2` are empty or non-existent")
+    print_log("done")
+    return roms_path
+
 # parse user args
 def parse_args():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
@@ -51,7 +73,7 @@ def pull_latest():
         print_log("No updates available.")
 
 # update the `/etc/emulationstation/es_systems.cfg` file
-def update_es_systems_cfg():
+def update_es_systems_cfg(roms_path):
     print_log("Checking if %s needs to be updated..." % ES_SYSTEMS_CFG_PATH, end=' ')
     with open(ES_SYSTEMS_CFG_PATH) as f:
         cfg_data = f.read()
@@ -61,7 +83,7 @@ def update_es_systems_cfg():
         with open(ES_SYSTEMS_CFG_BACKUP_PATH, 'w') as f:
             f.write(cfg_data)
         with open(ES_SYSTEMS_CFG_PATH, 'w') as f:
-            f.write(cfg_data.replace('</systemList>','%s\n</systemList>' % ES_SYSTEMS_CFG_BIOINFORMATICS_SYSTEM_ENTRY))
+            f.write(cfg_data.replace('</systemList>','%s\n</systemList>' % ES_SYSTEMS_CFG_BIOINFORMATICS_SYSTEM_ENTRY.replace('{roms_dir}',roms_path)))
         print_log("Updated successfully.")
 
 # install dependencies
@@ -79,33 +101,14 @@ def install_deps():
     else:
         error("FAILED!")
 
-# get the size of a `Path`
-def get_path_size(path):
-    if not path.exists():
-        return 0
-    elif path.is_file():
-        return path.stat().st_size
-    else:
-        total = 0
-        for p in path.rglob('*'):
-            if p.is_file():
-                total += p.stat().st_size
-        return total
-
 # set up `/roms` (or `/roms2`) directory
-def setup_roms_dir():
-    print_log("Searching for roms directory...", end=' ')
-    roms_path_size, roms_path = max((get_path_size(path), path) for path in [Path('/roms'), Path('/roms2')])
-    if roms_path_size == 0:
-        error("Both `/roms` and `/roms2` are empty or non-existent")
-    print_log("done")
+def setup_roms_dir(roms_path):
     bioinformatics_path = roms_path / 'bioinformatics'
     print_log("Setting up `%s`..." % bioinformatics_path, end=' ')
     bioinformatics_path.mkdir(parents=False, exist_ok=True)
     with open(bioinformatics_path / 'configure.py', 'w') as f:
         f.write("from subprocess import run; run(['python3', '%s'])\n" % Path(__file__).resolve())
     print_log("done")
-    exit() # TODO
 
 # reboot system
 def reboot_system():
@@ -117,10 +120,12 @@ def main():
     args = parse_args()
     if not args.skip_update:
         pull_latest()
-    update_es_systems_cfg()
-    setup_roms_dir()
-    if not args.skip_reboot:
-        reboot_system()
+    install_deps()
+    roms_path = find_roms_path()
+    update_es_systems_cfg(roms_path)
+    setup_roms_dir(roms_path)
+    #if not args.skip_reboot:
+    #    reboot_system()
 
 # run program
 if __name__ == "__main__":
