@@ -19,16 +19,22 @@ echo "Installing Python dependencies..."
 #(python3 -m pip install --upgrade --no-cache-dir $DEPS_PYTHON) || (echo "Failed to install Python dependencies" && sleep 5 && exit 1)
 
 # find roms path
+echo "Finding roms path..."
 if [[ "$(ls /roms | wc -l)" -ge "$(ls /roms2 | wc -l)" ]] ; then
     ROMS='/roms'
 else
     ROMS='/roms2'
 fi
+echo "Found roms path: $ROMS"
 
 # update es_systems.cfg
-cp $ES_SYSTEMS_CFG_PATH $ES_SYSTEMS_CFG_BACKUP_PATH
-python3 -c "print('$ES_SYSTEMS_CFG_BIOINFORMATICS_SYSTEM_ENTRY')"
-#python3 -c "f = open('$ES_SYSTEMS_CFG_PATH'); cfg_data = f.read(); f.close(); f = open('$ES_SYSTEMS_CFG_PATH','w'); f.write(
+if grep -q '<name>Bioinformatics</name>' "$ES_SYSTEMS_CFG_PATH" ; then
+    echo "No changes needed in es_systems.cfg"
+else
+    echo "TODO"
+    #cp $ES_SYSTEMS_CFG_PATH $ES_SYSTEMS_CFG_BACKUP_PATH
+    #python3 -c "f = open('$ES_SYSTEMS_CFG_PATH'); cfg_data = f.read(); f.close(); f = open('$ES_SYSTEMS_CFG_PATH','w'); f.write(cfg_data.replace('</systemList>','%s\n</systemList>' % ES_SYSTEMS_CFG_BIOINFORMATICS_SYSTEM_ENTRY.replace('{roms_dir}',str(roms_path)))); f.close()"
+fi
 
 # finish up
 echo "R36S-Bioinformatics successfully configured :-)"
