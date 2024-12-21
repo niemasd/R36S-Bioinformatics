@@ -12,7 +12,7 @@ sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get autoremove -y && 
 echo "Updating Python dependencies..."
 python3 -m pip list --outdated | awk 'NR>2 {print $1}' | xargs -n1 python3 -m pip install --upgrade --no-cache-dir
 
-# find R36S-Bioinformatics repo path
+# find and update R36S-Bioinformatics repo path
 echo "Finding R36S-Bioinformatics repo in home directory (~)..."
 INSTALL_SH=$(find ~ -name 'install.sh' 2> /dev/null | grep 'R36S-Bioinformatics/install.sh' | head -1)
 if [[ -z "${INSTALL_SH}" ]] ; then
@@ -22,7 +22,8 @@ if [[ -z "${INSTALL_SH}" ]] ; then
     INSTALL_SH="$(realpath ~/R36S-Bioinformatics/install.sh)"
 fi
 REPO_PATH="$(echo $INSTALL_SH | rev | cut -d'/' -f2- | rev)"
-echo "Found R36S-Bioinformatics repo path: $REPO_PATH"
+echo "Updating R36S-Bioinformatics repo path: $REPO_PATH"
+cd "$REPO_PATH" && git pull
 
 # find roms path
 echo "Finding roms path..."
@@ -34,8 +35,9 @@ fi
 echo "Found roms path: $ROMS"
 
 # update apps
-cd "$REPO_PATH" && git pull && rm -rf "$ROMS/bioinformatics" && cp -r "$REPO_PATH/apps" "$ROMS/bioinformatics"
-echo "R36S-Bioinformatics apps successfully updated :-)"
+echo "Updating R36S-Bioinformatics apps..."
+rm -rf "$ROMS/bioinformatics" && cp -r "$REPO_PATH/apps" "$ROMS/bioinformatics"
+echo "R36S-Bioinformatics successfully updated :-)"
 echo "Rebooting system in 5 seconds..."
 sleep 5
 
