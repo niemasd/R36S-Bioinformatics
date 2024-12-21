@@ -7,7 +7,7 @@
 #sudo chmod 777 /dev/input/by-path/platform-odroidgo2-joypad-event-joystick
 
 # run app
-printf "\e32mHi, Niema!"
+echo "Hi, Niema!"
 #SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 #python3 "$SCRIPT_DIR/file_browser.py"
 sleep 5
