@@ -13,7 +13,7 @@ import argparse
 VERSION = '0.0.1'
 ES_SYSTEMS_CFG_PATH = Path('/etc/emulationstation/es_systems.cfg')
 ES_SYSTEMS_CFG_BACKUP_PATH = ES_SYSTEMS_CFG_PATH.parent / (ES_SYSTEMS_CFG_PATH.name + '.r36s-bioinformatics.bak')
-ES_SYSTEMS_CFG_BIOINFORMATICS_SYSTEM_ENTRY = "\t<system>\n\t\t<name>Bioinformatics</name>\n\t\t<fullname>Bioinformatics</fullname>\n\t\t<path>{roms_dir}/bioinformatics/</path>\n\t\t<extension>.py</extension>\n\t\t<command>python3 %ROM%</command>\n\t\t<platform>bioinformatics</platform>\n\t\t<theme>bioinformatics</theme>\n\t</system>"
+ES_SYSTEMS_CFG_BIOINFORMATICS_SYSTEM_ENTRY = "\t<system>\n\t\t<name>Bioinformatics</name>\n\t\t<fullname>Bioinformatics</fullname>\n\t\t<path>{roms_dir}/bioinformatics/</path>\n\t\t<extension>.sh .SH</extension>\n\t\t<command>sudo chmod 666 /dev/tty1; %ROM% 2>&1 > /dev/tty1; printf \"\\033c\" >> /dev/tty1</command>\n\t\t<platform>bioinformatics</platform>\n\t\t<theme>bioinformatics</theme>\n\t</system>"
 DEPS_LINUX = ['cmake', 'g++', 'git', 'libc6-dev', 'libsdl2-dev', 'libsdl2-ttf-dev', 'libstdc++-9-dev', 'linux-libc-dev', 'make', 'ninja-build', 'python3', 'python3-pip']
 DEPS_PYTHON = ['prompt_toolkit', 'pysdl2', 'pysdl2-dll']
 
@@ -107,8 +107,8 @@ def setup_roms_dir(roms_path):
     bioinformatics_path = roms_path / 'bioinformatics'
     print_log("Setting up `%s`..." % bioinformatics_path, end=' ')
     bioinformatics_path.mkdir(parents=False, exist_ok=True)
-    with open(bioinformatics_path / 'configure.py', 'w') as f:
-        f.write("from subprocess import run; run(['python3', '%s'])\n" % Path(__file__).resolve())
+    with open(bioinformatics_path / 'configure.sh', 'w') as f:
+        f.write("python3 %s\n" % Path(__file__).resolve())
     print_log("done")
 
 # reboot system
