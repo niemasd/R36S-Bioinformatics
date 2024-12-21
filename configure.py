@@ -27,7 +27,7 @@ def greet():
 
 # print an error message and exit
 def error(s='', end='\n', returncode=1):
-    print_log(s, end=end); exit(returncode)
+    print_log('ERROR: %s' % s, end=end); exit(returncode)
 
 # get the size of a `Path`
 def get_path_size(path):
@@ -88,18 +88,18 @@ def update_es_systems_cfg(roms_path):
 
 # install dependencies
 def install_deps():
-    print_log("Installing Linux dependencies...", end=' ')
-    proc = run(['sudo', 'apt-get', 'install', '--reinstall'] + DEPS_LINUX, capture_output=True)
+    print_log("Installing Linux dependencies...")
+    proc = run(['sudo', 'apt-get', 'install', '--reinstall'] + DEPS_LINUX)
     if proc.returncode == 0:
-        print_log("done")
+        print_log("Successfully installed Linux dependencies.")
     else:
-        error("FAILED!")
-    print_log("Installing Python dependencies...", end=' ')
-    proc = run(['python3', '-m', 'pip', 'install', '--upgrade', '--no-cache-dir'] + DEPS_PYTHON, capture_output=True)
+        error("Failed to install Linux dependencies!")
+    print_log("Installing Python dependencies...")
+    proc = run(['python3', '-m', 'pip', 'install', '--upgrade', '--no-cache-dir'] + DEPS_PYTHON)
     if proc.returncode == 0:
-        print_log("done")
+        print_log("Successfully installed Python dependencies.")
     else:
-        error("FAILED!")
+        error("Failed to install Python dependencies!")
 
 # set up `/roms` (or `/roms2`) directory
 def setup_roms_dir(roms_path):
