@@ -10,6 +10,7 @@ sudo chmod 777 /dev/input/by-path/platform-odroidgo2-joypad-event-joystick
 echo "Finding install script in home directory (~)..."
 INSTALL_SH=$(find ~ -name 'install.sh' 2> /dev/null | grep 'R36S-Bioinformatics/install.sh' | head -1)
 if [[ -z "${INSTALL_SH}" ]] ; then
+    echo "Install script not found. Cloning into home directory (~)..."
     cd ~
     git clone https://github.com/niemasd/R36S-Bioinformatics.git
     INSTALL_SH='~/R36S-Bioinformatics/install.sh'
