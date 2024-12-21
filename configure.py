@@ -7,6 +7,7 @@ Configure R36S-Bioinformatics
 from pathlib import Path
 from subprocess import run
 from sys import argv, stdout
+from time import sleep
 import argparse
 
 # constants
@@ -113,7 +114,9 @@ def setup_roms_dir(roms_path):
     print_log("done")
 
 # reboot system
-def reboot_system():
+def reboot_system(delay=5):
+    print_log("Rebooting system in %d seconds..." % delay)
+    sleep(delay)
     run(['sudo', 'reboot'])
 
 # main program logic
