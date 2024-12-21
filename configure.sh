@@ -9,7 +9,6 @@ DEPS_LINUX='cmake g++ git libc6-dev libsdl2-dev libsdl2-ttf-dev libstdc++-9-dev 
 DEPS_PYTHON='prompt_toolkit pysdl2 pysdl2-dll'
 
 # set things up
-set -e # to exit upon any failure
 sudo rg351p-js2xbox --silent -t oga_joypad &
 sudo ln -s /dev/input/event3 /dev/input/by-path/platform-odroidgo2-joypad-event-joystick
 sudo chmod 777 /dev/input/by-path/platform-odroidgo2-joypad-event-joystick
