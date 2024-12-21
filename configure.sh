@@ -29,7 +29,9 @@ fi
 
 # install dependencies
 echo "Installing Linux dependencies..."
-(sudo apt-get update && sudo apt-get install -y $DEPS_LINUX) || (echo "Failed to install Linux dependencies" && exit 1)
+(sudo apt-get update && sudo apt-get install -y $DEPS_LINUX) || (echo "Failed to install Linux dependencies" && sleep 5 && exit 1)
+echo "Installing Python dependencies..."
+(python3 -m pip install --upgrade --no-cache-dir $DEPS_PYTHON) || (echo "Failed to install Python dependencies" && sleep 5 && exit 1)
 
 # finish up
 echo "R36S-Bioinformatics successfully configured :-)"
