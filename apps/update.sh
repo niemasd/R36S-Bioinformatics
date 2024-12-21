@@ -1,11 +1,6 @@
 #!/usr/bin/env bash
 # app to update dependencies + apps
 
-# set things up
-sudo rg351p-js2xbox --silent -t oga_joypad &
-sudo ln -s /dev/input/event3 /dev/input/by-path/platform-odroidgo2-joypad-event-joystick
-sudo chmod 777 /dev/input/by-path/platform-odroidgo2-joypad-event-joystick
-
 # update Linux and Python dependencies
 echo "Updating Linux dependencies..."
 sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get autoremove -y && sudo apt-get clean
@@ -38,15 +33,8 @@ echo "Found roms path: $ROMS"
 echo "Updating R36S-Bioinformatics apps..."
 rm -rf "$ROMS/bioinformatics" && cp -r "$REPO_PATH/apps" "$ROMS/bioinformatics"
 echo "R36S-Bioinformatics successfully updated :-)"
-echo "Rebooting system in 5 seconds..."
-sleep 5
-
-# finish up
-KILL_PID=$(pidof rg351p-js2xbox)
-if [[ ! -z "${KILL_PID}" ]] ; then
-    sudo kill $(pidof rg351p-js2xbox)
-fi
-sudo rm /dev/input/by-path/platform-odroidgo2-joypad-event-joystick
 
 # reboot system
+echo "Rebooting system in 5 seconds..."
+sleep 5
 sudo reboot
