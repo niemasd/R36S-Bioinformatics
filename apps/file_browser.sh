@@ -9,6 +9,7 @@ sudo chmod 777 /dev/input/by-path/platform-odroidgo2-joypad-event-joystick
 # run app
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 python3 "$SCRIPT_DIR/file_browser.py"
+sleep 1
 
 # finish up
 KILL_PID=$(pidof rg351p-js2xbox)
