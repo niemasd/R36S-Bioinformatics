@@ -7,4 +7,4 @@ A suite of Bioinformatics tools for the [R36S](https://handhelds.miraheze.org/wi
 2. SSH into the R36S: https://github.com/dov/r36s-programming/tree/main?tab=readme-ov-file#ssh
 3. Clone this repository: `git clone https://github.com/niemasd/R36S-Bioinformatics`
 4. Enter the cloned `R36S-Bioinformatics` directory: `cd R36S-Bioinformatics`
-5. Run the configuration script: `./configure.py`
+5. Run the installation script: `./install.sh`
