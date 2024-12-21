@@ -109,8 +109,8 @@ def setup_roms_dir(roms_path):
     bioinformatics_path = roms_path / 'bioinformatics'
     print_log("Setting up `%s`..." % bioinformatics_path, end=' ')
     bioinformatics_path.mkdir(parents=False, exist_ok=True)
-    with open(bioinformatics_path / 'configure.sh', 'w') as f:
-        f.write("python3 %s\n" % Path(__file__).resolve())
+    for app in Path(__file__).parent.glob('apps/*.sh'):
+        copy2(app, bioinformatics_path)
     print_log("done")
 
 # reboot system
