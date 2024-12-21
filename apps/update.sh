@@ -28,7 +28,7 @@ fi
 echo "Found roms path: $ROMS"
 
 # update apps
-cd "$REPO_PATH" && git pull && rm -rf "$ROMS" && cp -r "$REPO_PATH/apps" "$ROMS"
+cd "$REPO_PATH" && git pull && rm -rf "$ROMS/bioinformatics" && cp -r "$REPO_PATH/apps" "$ROMS/bioinformatics"
 echo "R36S-Bioinformatics apps successfully updated :-)"
 echo "Rebooting system in 5 seconds..."
 sleep 5
