@@ -1,12 +1,6 @@
 #!/usr/bin/env bash
 # app to update dependencies + apps
 
-# update Linux and Python dependencies
-echo "Updating Linux dependencies..."
-sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get autoremove -y && sudo apt-get clean
-echo "Updating Python dependencies..."
-python3 -m pip list --outdated | awk 'NR>2 {print $1}' | xargs -n1 python3 -m pip install --upgrade --no-cache-dir
-
 # find and update R36S-Bioinformatics repo path
 echo "Finding R36S-Bioinformatics repo in home directory (~)..."
 INSTALL_SH=$(find ~ -name 'install.sh' 2> /dev/null | grep 'R36S-Bioinformatics/install.sh' | head -1)
