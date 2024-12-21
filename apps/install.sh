@@ -10,11 +10,11 @@ sudo chmod 777 /dev/input/by-path/platform-odroidgo2-joypad-event-joystick
 echo "Finding install script in home directory (~)..."
 INSTALL_SH=$(find ~ -name 'install.sh' 2> /dev/null | grep 'R36S-Bioinformatics/install.sh' | head -1)
 if [[ -z "${INSTALL_SH}" ]] ; then
-    echo "ERROR: R36S-Bioinformatics/install.sh not found"
-    sleep 5
-else
-    echo "Running install script: $INSTALL_SH" && echo "" && cd $(echo $INSTALL_SH | rev | cut -d'/' -f2- | rev) && git pull && "$INSTALL_SH"
+    cd ~
+    git clone https://github.com/niemasd/R36S-Bioinformatics.git
+    INSTALL_SH='~/R36S-Bioinformatics/install.sh'
 fi
+echo "Running install script: $INSTALL_SH" && echo "" && cd $(echo $INSTALL_SH | rev | cut -d'/' -f2- | rev) && git pull && "$INSTALL_SH"
 
 # finish up
 KILL_PID=$(pidof rg351p-js2xbox)
