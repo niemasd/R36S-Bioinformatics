@@ -17,27 +17,27 @@ except:
 
 # mapping from `inputs` gamepad to R36S controller
 INPUT_TO_R36S = {
-    'ABS_RX':              'RIGHTX',
-    'ABS_RY':              'RIGHTY',
-    'ABS_X':               'LEFTX',
-    'ABS_Y':               'LEFTY',
-    'BTN_DPAD_DOWN':       'DOWN',
-    'BTN_DPAD_LEFT':       'LEFT',
-    'BTN_DPAD_RIGHT':      'RIGHT',
-    'BTN_DPAD_UP':         'UP',
-    'BTN_EAST':            'A',
-    'BTN_NORTH':           'X',
-    'BTN_SOUTH':           'B',
-    'BTN_TL':              'L1',
-    'BTN_TL2':             'L2',
-    'BTN_TR':              'R1',
-    'BTN_TR2':             'R2',
-    'BTN_TRIGGER_HAPPY_1': 'SELECT',
-    'BTN_TRIGGER_HAPPY_2': 'START',
-    'BTN_TRIGGER_HAPPY_3': 'L3',
-    'BTN_TRIGGER_HAPPY_4': 'R3',
-    'BTN_TRIGGER_HAPPY_5': 'FN',
-    'BTN_WEST':            'Y',
+    'ABS_RX':              'RIGHTX', # 0 = neutral; <0 = left; >0 = right
+    'ABS_RY':              'RIGHTY', # 0 = neutral; <0 = up;   >0 = down
+    'ABS_X':               'LEFTX',  # 0 = neutral; <0 = left; >0 = right
+    'ABS_Y':               'LEFTY',  # 0 = neutral; <0 = up;   >0 = down
+    'BTN_DPAD_DOWN':       'DOWN',   # 0 = unpressed; 1 = pressed
+    'BTN_DPAD_LEFT':       'LEFT',   # 0 = unpressed; 1 = pressed
+    'BTN_DPAD_RIGHT':      'RIGHT',  # 0 = unpressed; 1 = pressed
+    'BTN_DPAD_UP':         'UP',     # 0 = unpressed; 1 = pressed
+    'BTN_EAST':            'A',      # 0 = unpressed; 1 = pressed
+    'BTN_NORTH':           'X',      # 0 = unpressed; 1 = pressed
+    'BTN_SOUTH':           'B',      # 0 = unpressed; 1 = pressed
+    'BTN_TL':              'L1',     # 0 = unpressed; 1 = pressed
+    'BTN_TL2':             'L2',     # 0 = unpressed; 1 = pressed
+    'BTN_TR':              'R1',     # 0 = unpressed; 1 = pressed
+    'BTN_TR2':             'R2',     # 0 = unpressed; 1 = pressed
+    'BTN_TRIGGER_HAPPY_1': 'SELECT', # 0 = unpressed; 1 = pressed
+    'BTN_TRIGGER_HAPPY_2': 'START',  # 0 = unpressed; 1 = pressed
+    'BTN_TRIGGER_HAPPY_3': 'L3',     # 0 = unpressed; 1 = pressed
+    'BTN_TRIGGER_HAPPY_4': 'R3',     # 0 = unpressed; 1 = pressed
+    'BTN_TRIGGER_HAPPY_5': 'FN',     # 0 = unpressed; 1 = pressed
+    'BTN_WEST':            'Y',      # 0 = unpressed; 1 = pressed
 }
 R36S_TO_INPUT = {v:k for k,v in INPUT_TO_R36S.items()}
 
