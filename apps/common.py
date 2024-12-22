@@ -91,7 +91,7 @@ def message_dialog(title=None, text=None):
 # mimic the prompt_toolkit radiolist_dialog: https://python-prompt-toolkit.readthedocs.io/en/stable/pages/dialogs.html#radio-list-dialog
 def select_options_dialog(values, title=None, text=None, select_multi=False, small_jump=5, big_jump=10):
     # set up title + text
-    lines = [''] # start with empty line to make sure we're at the start of a line for actual content
+    lines = list()
     if title is not None:
         lines.append(pad_to_center('= %s =' % title))
     if select_multi:
