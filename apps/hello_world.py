@@ -20,4 +20,4 @@ if __name__ == "__main__":
                 elif event.code == 'BTN_TRIGGER_HAPPY1':
                     select_pressed = (event.state == 1)
             if start_pressed and select_pressed:
-                break
+                exit()
