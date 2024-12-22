@@ -85,8 +85,8 @@ def select_options_dialog(values, title=None, text=None, select_multi=False):
         lines.append('') # add empty line between title/text and options
 
     # set up selection
-    first_selectable_ind = len(lines)
     values = [(None, "= Cancel =")] + values
+    first_selectable_ind = len(lines)
     return_values = [None] + [v for v,t in values]
     lines += [('   ( ) ' + t) for v,t in values]
     selection = set()
