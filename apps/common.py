@@ -46,7 +46,8 @@ R36S_TO_INPUT = {v:k for k,v in INPUT_TO_R36S.items()}
 # joystick states: 0 = neutral; <0 = left (X) or up (Y); >0 = right (X) or down (Y)
 def get_controller_events():
     while True:
-        for event in get_gamepad():
+        events = get_gamepad()
+        for event in events:
             yield (INPUT_TO_R36S[event.code], event.state)
 
 '''
