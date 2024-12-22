@@ -59,6 +59,23 @@ def pad_to_center(s, max_width=SCREEN_WIDTH):
 def clear_screen():
     system('clear')
 
+# print lines to screen, and try to center around a specific index if there are more lines than the max
+def print_lines(lines, center_ind=None, max_height=SCREEN_HEIGHT):
+    if center_ind is None:
+        center_ind = len(lines) // 2
+    if len(lines) <= max_height:
+        shown_lines = lines
+    else:
+        half_height = max_height // 2
+        if curr_ind - half_height < 0:
+            shown_lines = lines[:max_height]
+        elif curr_ind + half_height > len(lines):
+            shown_lines = lines[-half_height:]
+        else:
+            shown_lines = lines[curr_ind - half_height : curr_ind + half_height]
+    clear_screen()
+    print('\n'.join(shown_lines), end='')
+
 # generator to yield each controller event as (button, state) tuples
 # button states: 0 = unpressed; 1 = pressed
 # joystick states: 0 = neutral; <0 = left (X) or up (Y); >0 = right (X) or down (Y)
@@ -98,8 +115,7 @@ def select_options_dialog(values, title=None, text=None, select_multi=False):
     while True:
         # print options
         lines[curr_ind] = '-> ' + lines[curr_ind][3:]
-        clear_screen()
-        print('\n'.join(lines), end='')
+        print_lines(lines, center_ind=curr_ind)
         lines[curr_ind] = '   ' + lines[curr_ind][3:]
 
         # listen for user input
