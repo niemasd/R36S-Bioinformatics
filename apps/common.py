@@ -160,7 +160,7 @@ def select_options_dialog(values, title=None, text=None, select_multi=False, sma
                 elif button == 'DOWN' and curr_ind < (len(lines) - 1):
                     curr_ind += 1
                     break
-                elif button == 'B' lines[first_selectable_ind + 1] == '   ( ) ../':
+                elif button == 'B' and lines[first_selectable_ind + 1] == '   ( ) ../':
                     return return_values[first_selectable_ind + 1]
 
 # file selector
