@@ -160,6 +160,8 @@ def select_options_dialog(values, title=None, text=None, select_multi=False, sma
                 elif button == 'DOWN' and curr_ind < (len(lines) - 1):
                     curr_ind += 1
                     break
+                elif button == 'B' lines[first_selectable_ind + 1] == '   ( ) ../':
+                    return return_values[first_selectable_ind + 1]
 
 # file selector
 def select_file(curr_path=Path('~').resolve(), select_folder=False):
@@ -170,7 +172,7 @@ def select_file(curr_path=Path('~').resolve(), select_folder=False):
         if select_folder and curr_path.is_dir():
             values.append((curr_path.parent, '=== Select Current Directory ==='))
         if curr_path != ROOT_PATH:
-            values.append((curr_path.parent, '..'))
+            values.append((curr_path.parent, '../'))
         values += sorted(((p, p.name + '/' if p.is_dir() else p.name) for p in curr_path.glob('*')), key=lambda x: x[0].name.lower())
         result = select_options_dialog(title=title, text=text, values=values, select_multi=False)
         if result is None or result.is_file():
