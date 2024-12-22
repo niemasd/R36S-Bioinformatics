@@ -99,7 +99,7 @@ def message_dialog(title=None, text=None):
         for button, state in get_controller_events():
             if button == 'LEFTY' or button == 'RIGHTY':
                 if state < 0:
-                    curr_ind = max(curr_ind - 1, first_selectable_ind)
+                    curr_ind = max(curr_ind - 1, 0)
                     break
                 elif state > 0:
                     curr_ind = min(curr_ind + 1, len(lines) - 1)
