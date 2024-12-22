@@ -57,7 +57,7 @@ def get_controller_events():
 # file selector TODO FIX
 def select_file(curr_path=Path('~').resolve(), select_folder=False):
     print('\n'.join(('%d' % (i%10)) * SCREEN_WIDTH for i in range(SCREEN_HEIGHT)), end='')
-    sleep(5)
+    sleep(2)
     title = "Select File/Folder"
     while True:
         text = "Current Directory: %s" % curr_path
