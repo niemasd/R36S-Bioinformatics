@@ -237,7 +237,7 @@ def text_input_dialog(title=None, text=None, curr_string=''):
     # text entry loop
     curr_row = 0
     curr_col = 0
-    lower = False
+    lower = True
     lr_states = {'L1':0, 'L2':0, 'R1':0, 'R2':0}
     while True:
         keyboard = KEYBOARD_LOWER if lower else KEYBOARD_UPPER
