@@ -5,6 +5,7 @@ Common functions and classes for R36S-Bioinformatics
 
 # general imports
 from pathlib import Path
+from time import sleep
 
 # general constants
 ROOT_PATH = Path('/')
@@ -51,9 +52,10 @@ def get_controller_events():
             if event.code in INPUT_TO_R36S:
                 yield (INPUT_TO_R36S[event.code], event.state)
 
-'''
 # file selector
 def select_file(curr_path=Path('~').resolve(), select_folder=False):
+    print("0123456789"*100)
+    sleep(5)
     title = "Select File/Folder"
     while True:
         text = "Current Directory: %s" % curr_path
@@ -70,7 +72,7 @@ def select_file(curr_path=Path('~').resolve(), select_folder=False):
             curr_path = result
         else:
             raise ValueError("Invalid selection: %s" % result)
-
+'''
 # view file info
 def view_file_info(path):
     stat_result = path.stat()
