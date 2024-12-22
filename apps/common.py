@@ -67,16 +67,16 @@ def print_lines(lines, center_ind=None, max_height=SCREEN_HEIGHT):
         shown_lines = lines
     else:
         half_height = max_height // 2
-        print("NEED TO FORMAT"); sleep(2) # TODO
-        if curr_ind - half_height < 0:
-            print("IF TOP"); sleep(2) # TODO
+        #print("NEED TO FORMAT"); sleep(2) # TODO
+        if center_ind - half_height < 0:
+            #print("IF TOP"); sleep(2) # TODO
             shown_lines = lines[:max_height]
-        elif curr_ind + half_height > len(lines):
-            print("ELIF BOTTOM"); sleep(2) # TODO
+        elif center_ind + half_height > len(lines):
+            #print("ELIF BOTTOM"); sleep(2) # TODO
             shown_lines = lines[-half_height:]
         else:
-            print("ELSE MIDDLE"); sleep(2) # TODO
-            shown_lines = lines[curr_ind - half_height : curr_ind + half_height]
+            #print("ELSE MIDDLE"); sleep(2) # TODO
+            shown_lines = lines[center_ind - half_height : center_ind + half_height]
     clear_screen()
     print('\n'.join(shown_lines), end='')
 
