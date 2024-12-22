@@ -52,7 +52,7 @@ def get_controller_events():
             if event.code in INPUT_TO_R36S:
                 yield (INPUT_TO_R36S[event.code], event.state)
 
-# file selector
+# file selector TODO FIX
 def select_file(curr_path=Path('~').resolve(), select_folder=False):
     print("0123456789"*100)
     sleep(5)
@@ -72,8 +72,8 @@ def select_file(curr_path=Path('~').resolve(), select_folder=False):
             curr_path = result
         else:
             raise ValueError("Invalid selection: %s" % result)
-'''
-# view file info
+
+# view file info TODO FIX
 def view_file_info(path):
     stat_result = path.stat()
     title = "File Information"
@@ -81,4 +81,3 @@ def view_file_info(path):
     text += '\n- <ansiblue>Size:</ansiblue> %s bytes' % '{:,}'.format(stat_result.st_size)
     text = HTML(text)
     message_dialog(title=title, text=text).run()
-'''
