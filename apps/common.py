@@ -92,6 +92,9 @@ def message_dialog(title=None, text=None):
     if text is not None:
         lines += [s.rstrip() for s in text.splitlines()]
     print_lines(lines)
+    for button, state in get_controller_events():
+        if button in {'A', 'B', 'START'}:
+            return
 
 # mimic the prompt_toolkit radiolist_dialog: https://python-prompt-toolkit.readthedocs.io/en/stable/pages/dialogs.html#radio-list-dialog
 def select_options_dialog(values, title=None, text=None, select_multi=False, small_jump=5, big_jump=10):
