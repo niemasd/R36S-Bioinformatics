@@ -248,7 +248,7 @@ def text_input_dialog(title=None, text=None, curr_string=''):
                 break
             elif button == 'LEFTY' or button == 'RIGHTY':
                 if state < 0:
-                    curr_row = max(row - 1, 0)
+                    curr_row = max(curr_row - 1, 0)
                     break
                 elif state > 0:
                     curr_row = min(curr_row + 1, len(keyboard) - 1)
@@ -262,7 +262,7 @@ def text_input_dialog(title=None, text=None, curr_string=''):
                     break
             elif state == 1:
                 if button == 'UP':
-                    curr_row = max(row - 1, 0)
+                    curr_row = max(curr_row - 1, 0)
                     break
                 elif button == 'DOWN':
                     curr_row = min(curr_row + 1, len(keyboard) - 1)
