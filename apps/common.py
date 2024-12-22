@@ -160,6 +160,8 @@ def select_options_dialog(values, title=None, text=None, select_multi=False, sma
                 elif button == 'DOWN' and curr_ind < (len(lines) - 1):
                     curr_ind += 1
                     break
+                elif button == 'B':
+                    return '..'
 
 # file selector
 def select_file(curr_path=Path('~').resolve(), select_folder=False):
