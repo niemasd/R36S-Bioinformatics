@@ -60,9 +60,7 @@ def clear_screen():
     system('clear')
 
 # print lines to screen, and try to center around a specific index if there are more lines than the max
-def print_lines(lines, center_ind=None, max_height=SCREEN_HEIGHT):
-    if center_ind is None:
-        center_ind = len(lines) // 2
+def print_lines(lines, center_ind, max_height=SCREEN_HEIGHT):
     if len(lines) <= max_height:
         shown_lines = lines
     else:
@@ -70,7 +68,7 @@ def print_lines(lines, center_ind=None, max_height=SCREEN_HEIGHT):
         if center_ind - half_height < 0:
             shown_lines = lines[:max_height]
         elif center_ind + half_height > len(lines):
-            shown_lines = lines[-half_height:]
+            shown_lines = lines[-max_height:]
         else:
             shown_lines = lines[center_ind - half_height : center_ind + half_height]
     clear_screen()
@@ -91,7 +89,7 @@ def message_dialog(title=None, text=None):
     exit() # TODO
 
 # mimic the prompt_toolkit radiolist_dialog: https://python-prompt-toolkit.readthedocs.io/en/stable/pages/dialogs.html#radio-list-dialog
-def select_options_dialog(values, title=None, text=None, select_multi=False):
+def select_options_dialog(values, title=None, text=None, select_multi=False, small_jump=5, big_jump=10):
     # set up title + text
     lines = [''] # start with empty line to make sure we're at the start of a line for actual content
     if title is not None:
@@ -146,6 +144,18 @@ def select_options_dialog(values, title=None, text=None, select_multi=False):
                     return [return_values[i] for i in sorted(selection)]
                 elif button == 'UP' and curr_ind > first_selectable_ind:
                     curr_ind -= 1
+                    break
+                elif button == 'L1':
+                    curr_ind = max(curr_ind - big_jump, first_selectable_ind)
+                    break
+                elif button == 'L2':
+                    curr_ind = max(curr_ind - small_jump, first_selectable_ind)
+                    break
+                elif button == 'R1':
+                    curr_ind = min(curr_ind + big_jump, len(lines) - 1)
+                    break
+                elif button == 'R2':
+                    curr_ind = min(curr_ind + small_jump, len(lines) - 1)
                     break
                 elif button == 'DOWN' and curr_ind < (len(lines) - 1):
                     curr_ind += 1
