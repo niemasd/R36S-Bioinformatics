@@ -121,8 +121,10 @@ def select_options_dialog(values, title=None, text=None, select_multi=False):
             if button == 'LEFTY' or button == 'RIGHTY':
                 if state < 0 and curr_ind > first_selectable_ind:
                     curr_ind -= 1
+                    break
                 elif state > 0 and curr_ind < (len(lines) - 1):
                     curr_ind += 1
+                    break
             elif state == 1:
                 if button == 'A':
                     if curr_ind == first_selectable_ind: # Cancel option
@@ -131,17 +133,21 @@ def select_options_dialog(values, title=None, text=None, select_multi=False):
                         if curr_ind in selection:
                             selection.remove(curr_ind)
                             lines[curr_ind] = lines[curr_ind][:4] + ' ' + lines[curr_ind][:5]
+                            break
                         else:
                             selection.add(curr_ind)
                             lines[curr_ind] = lines[curr_ind][:4] + '*' + lines[curr_ind][:5]
+                            break
                     else:
                         return return_values[curr_ind]
                 elif button == 'START' and select_multi:
                     return [return_values[i] for i in sorted(selection)]
                 elif button == 'UP' and curr_ind > first_selectable_ind:
                     curr_ind -= 1
+                    break
                 elif button == 'DOWN' and curr_ind < (len(lines) - 1):
                     curr_ind += 1
+                    break
 
 # file selector
 def select_file(curr_path=Path('~').resolve(), select_folder=False):
