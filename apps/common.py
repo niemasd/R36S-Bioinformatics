@@ -119,20 +119,28 @@ def select_options_dialog(values, title=None, text=None, select_multi=False, sma
 
     # file selection loop
     curr_ind = first_selectable_ind
+    left_col = 0 # to allow for scrolling left/right
     while True:
         # print options
         lines[curr_ind] = '-> ' + lines[curr_ind][3:]
-        print_lines(lines, center_ind=curr_ind)
+        print_lines(lines, center_ind=curr_ind, left_col=left_col)
         lines[curr_ind] = '   ' + lines[curr_ind][3:]
 
         # listen for user input
         for button, state in get_controller_events():
             if button == 'LEFTY' or button == 'RIGHTY':
-                if state < 0 and curr_ind > first_selectable_ind:
-                    curr_ind -= 1
+                if state < 0:
+                    curr_ind = max(curr_ind - 1, first_selectable_ind)
                     break
-                elif state > 0 and curr_ind < (len(lines) - 1):
-                    curr_ind += 1
+                elif state > 0:
+                    curr_ind = min(curr_ind + 1, len(lines) - 1)
+                    break
+            elif button == 'LEFTX' or button == 'RIGHTX':
+                if state < 0:
+                    left_col = max(left_col - 1, 0)
+                    break
+                elif state > 0:
+                    left_col += 1
                     break
             elif state == 1:
                 if button == 'A':
@@ -149,10 +157,12 @@ def select_options_dialog(values, title=None, text=None, select_multi=False, sma
                             break
                     else:
                         return return_values[curr_ind]
+                elif button == 'B' and lines[first_selectable_ind + 1] == '   ( ) ../':
+                    return return_values[first_selectable_ind + 1]
                 elif button == 'START' and select_multi:
                     return [return_values[i] for i in sorted(selection)]
-                elif button == 'UP' and curr_ind > first_selectable_ind:
-                    curr_ind -= 1
+                elif button == 'UP':
+                    curr_ind = max(curr_ind - 1, first_selectable_ind)
                     break
                 elif button == 'L1':
                     curr_ind = max(curr_ind - big_jump, first_selectable_ind)
@@ -160,17 +170,21 @@ def select_options_dialog(values, title=None, text=None, select_multi=False, sma
                 elif button == 'L2':
                     curr_ind = max(curr_ind - small_jump, first_selectable_ind)
                     break
+                elif button == 'DOWN':
+                    curr_ind = min(curr_ind + 1, len(lines) - 1)
+                    break
                 elif button == 'R1':
                     curr_ind = min(curr_ind + big_jump, len(lines) - 1)
                     break
                 elif button == 'R2':
                     curr_ind = min(curr_ind + small_jump, len(lines) - 1)
                     break
-                elif button == 'DOWN' and curr_ind < (len(lines) - 1):
-                    curr_ind += 1
+                elif button == 'LEFT':
+                    left_col = max(left_col - 1, 0)
                     break
-                elif button == 'B' and lines[first_selectable_ind + 1] == '   ( ) ../':
-                    return return_values[first_selectable_ind + 1]
+                elif button == 'RIGHT':
+                    left_col += 1
+                    break
 
 # file selector
 def select_file(curr_path=Path('~').resolve(), select_folder=False):
