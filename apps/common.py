@@ -48,6 +48,7 @@ def get_controller_events():
     while True:
         events = get_gamepad()
         for event in events:
+            print("DEBUG: !!!%s!!! (%s)" % (event.code, type(event.code)))
             if event.code in INPUT_TO_R36S:
                 yield (INPUT_TO_R36S[event.code], event.state)
 
