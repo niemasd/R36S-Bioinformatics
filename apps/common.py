@@ -60,7 +60,7 @@ def clear_screen():
     system('clear')
 
 # print lines to screen, and try to center around a specific index if there are more lines than the max
-def print_lines(lines, center_ind=0, max_width=SCREEN_WIDTH, max_height=SCREEN_HEIGHT):
+def print_lines(lines, center_ind=0, left_col=left_col, max_width=SCREEN_WIDTH, max_height=SCREEN_HEIGHT):
     if len(lines) <= max_height:
         shown_lines = lines
     else:
@@ -71,7 +71,7 @@ def print_lines(lines, center_ind=0, max_width=SCREEN_WIDTH, max_height=SCREEN_H
             shown_lines = lines[-max_height:]
         else:
             shown_lines = lines[center_ind - half_height : center_ind + half_height]
-    shown_lines = [l[:max_width] for l in shown_lines]
+    shown_lines = [l[left_col : left_col + max_width] for l in shown_lines]
     clear_screen()
     print('\n'.join(shown_lines), end='')
 
