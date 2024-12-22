@@ -92,10 +92,34 @@ def message_dialog(title=None, text=None):
         lines.append(pad_to_center('= %s =' % title))
     if text is not None:
         lines += [s.rstrip() for s in text.splitlines()]
-    print_lines(lines)
-    for button, state in get_controller_events():
-        if state == 1 and button in {'A', 'B', 'START'}:
-            return
+    left_col = 0
+    curr_ind = 0
+    while True:
+        print_lines(lines, center_ind=curr_ind, left_col=left_col)
+        for button, state in get_controller_events():
+            if button == 'LEFTY' or button == 'RIGHTY':
+                if state < 0:
+                    curr_ind = max(curr_ind - 1, first_selectable_ind)
+                    break
+                elif state > 0:
+                    curr_ind = min(curr_ind + 1, len(lines) - 1)
+                    break
+            elif button == 'LEFTX' or button == 'RIGHTX':
+                if state < 0:
+                    left_col = max(left_col - 1, 0)
+                    break
+                elif state > 0:
+                    left_col += 1
+                    break
+            elif state == 1:
+                if button in {'A', 'B', 'START'}:
+                    return
+                elif button == 'LEFT':
+                    left_col = max(left_col - 1, 0)
+                    break
+                elif button == 'RIGHT':
+                    left_col += 1
+                    break
 
 # mimic the prompt_toolkit radiolist_dialog: https://python-prompt-toolkit.readthedocs.io/en/stable/pages/dialogs.html#radio-list-dialog
 def select_options_dialog(values, title=None, text=None, select_multi=False, small_jump=5, big_jump=10):
