@@ -147,6 +147,8 @@ def select_file(curr_path=Path('~').resolve(), select_folder=False):
         result = select_options_dialog(title=title, text=text, values=values, select_multi=False)
         if result is None or result.is_file():
             return result
+        elif result == '..':
+            curr_path = curr_path.parent
         elif result.is_dir():
             curr_path = result
         else:
