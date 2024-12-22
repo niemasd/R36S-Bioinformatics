@@ -9,7 +9,7 @@ from time import sleep
 
 # general constants
 ROOT_PATH = Path('/')
-SCREEN_HEIGHT = 10
+SCREEN_HEIGHT = 80
 SCREEN_WIDTH = 80
 
 # import `inputs`: https://github.com/zeth/inputs
