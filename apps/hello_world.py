@@ -2,8 +2,8 @@
 '''
 Hello World app
 '''
-from common import get_controller_events
-from time import sleep
+from common import INPUT_TO_R36S
+from inputs import get_gamepad
 if __name__ == "__main__":
     print("Welcome to R36S-Bioinformatics!")
     print("This 'Hello, World!' app will print your button inputs.")

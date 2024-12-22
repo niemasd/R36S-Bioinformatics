@@ -3,17 +3,11 @@
 Common functions and classes for R36S-Bioinformatics
 '''
 
-# general imports
+# imports
 from pathlib import Path
 
-# general constants
+# constants
 ROOT_PATH = Path('/')
-
-# import `inputs`: https://github.com/zeth/inputs
-try:
-    from inputs import get_gamepad
-except:
-    raise RuntimeError("Missing Python package 'inputs'. Try rerunning the R36S-Bioinformatics 'INSTALL' app.")
 
 # mapping from `inputs` gamepad to R36S controller
 INPUT_TO_R36S = {
