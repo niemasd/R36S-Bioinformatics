@@ -47,6 +47,20 @@ INPUT_TO_R36S = {
 }
 R36S_TO_INPUT = {v:k for k,v in INPUT_TO_R36S.items()}
 
+# virtual keyboard layouts
+KEYBOARD_LOWER = [
+    ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '='],
+    ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']'],
+    ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', "'", '`'],
+    ['z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', '\\'],
+]
+KEYBOARD_UPPER = [
+    ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+'],
+    ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '{', '}'],
+    ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ':', '"', '~'],
+    ['Z', 'X', 'C', 'V', 'B', 'N', 'M', '<', '>', '?', '|'],
+]
+
 # add spaces to the left of a string to center it to a max length
 def pad_to_center(s, max_width=SCREEN_WIDTH):
     visible_length = len(s)
@@ -208,6 +222,58 @@ def select_options_dialog(values, title=None, text=None, select_multi=False, sma
                     break
                 elif button == 'RIGHT':
                     left_col += 1
+                    break
+
+# mimic the prompt_toolkit input_dialog: https://python-prompt-toolkit.readthedocs.io/en/stable/pages/dialogs.html#input-box
+def text_input_dialog(title=None, text=None, curr_string=''):
+    # set things up
+    header = list()
+    if title is not None:
+        header.append(pad_to_center('= %s =' % title))
+    header += [pad_to_center("A = select, B = backspace, Y = tab, X = newline, R1/R2/L1/L2 = shift"), pad_to_center("START = finish, SELECT = cancel"), '']
+    if text is not None:
+        header += [s.rstrip() for s in text.splitlines()]
+
+    # text entry loop
+    curr_row = 0
+    curr_col = 0
+    upper = False
+    while True:
+        keyboard = KEYBOARD_UPPER if upper else KEYBOARD_LOWER
+        lines = header + ['', curr_string, ''] + [''.join(('(%s)' % keyboard[row][col]) if (row == curr_row and col == curr_col) else (' %s ' % keyboard[row][col]) for col in range(len(keyboard[row]))) for row in range(len(keyboard))]
+        print_lines(lines)
+        for button, state in get_controller_events():
+            if button in {'L1', 'L2', 'R1', 'R2'}:
+                upper = (state == 1)
+                break
+            elif button == 'LEFTY' or button == 'RIGHTY':
+                if state < 0:
+                    curr_row = max(row - 1, 0)
+                    break
+                elif state > 0:
+                    curr_row = min(curr_row + 1, len(keyboard) - 1)
+                    break
+            elif button == 'LEFTX' or button == 'RIGHTX':
+                if state < 0:
+                    curr_col = max(curr_col - 1, 0)
+                    break
+                elif state > 0:
+                    curr_col = min(curr_col + 1, len(keyboard[curr_row]) - 1)
+                    break
+            elif state == 1:
+                if button == 'START':
+                    return curr_string
+                elif button == 'SELECT':
+                    return None
+                elif button == 'A':
+                    curr_string += keyboard[curr_row][curr_col]
+                    break
+                elif button == 'Y':
+                    curr_string += '\t'
+                elif button == 'X':
+                    curr_string += '\n'
+                elif button == 'B':
+                    curr_string = curr_string[:-1]
                     break
 
 # file selector
