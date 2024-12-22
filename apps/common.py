@@ -237,14 +237,16 @@ def text_input_dialog(title=None, text=None, curr_string=''):
     # text entry loop
     curr_row = 0
     curr_col = 0
-    upper = False
+    lower = False
+    lr_states = {'L1':0, 'L2':0, 'R1':0, 'R2':0}
     while True:
-        keyboard = KEYBOARD_UPPER if upper else KEYBOARD_LOWER
+        keyboard = KEYBOARD_LOWER if lower else KEYBOARD_UPPER
         lines = header + ['', curr_string, ''] + [''.join(('(%s)' % keyboard[row][col]) if (row == curr_row and col == curr_col) else (' %s ' % keyboard[row][col]) for col in range(len(keyboard[row]))) for row in range(len(keyboard))]
         print_lines(lines)
         for button, state in get_controller_events():
-            if button in {'L1', 'L2', 'R1', 'R2'}:
-                upper = (state == 1)
+            if button in lr_states:
+                lr_states[button] = state
+                lower = (sum(lr_states.values()) == 0)
                 break
             elif button == 'LEFTY' or button == 'RIGHTY':
                 if state < 0:
