@@ -261,7 +261,19 @@ def text_input_dialog(title=None, text=None, curr_string=''):
                     curr_col = min(curr_col + 1, len(keyboard[curr_row]) - 1)
                     break
             elif state == 1:
-                if button == 'START':
+                if button == 'UP':
+                    curr_row = max(row - 1, 0)
+                    break
+                elif button == 'DOWN':
+                    curr_row = min(curr_row + 1, len(keyboard) - 1)
+                    break
+                elif button == 'LEFT':
+                    curr_col = max(curr_col - 1, 0)
+                    break
+                elif button == 'RIGHT':
+                    curr_col = min(curr_col + 1, len(keyboard[curr_row]) - 1)
+                    break
+                elif button == 'START':
                     return curr_string
                 elif button == 'SELECT':
                     return None
