@@ -17,27 +17,27 @@ except:
 
 # mapping from `inputs` gamepad to R36S controller
 INPUT_TO_R36S = {
-    'ABS_RX':              'RIGHTX',
-    'ABS_RY':              'RIGHTY',
-    'ABS_X':               'LEFTX',
-    'ABS_Y':               'LEFTY',
-    'BTN_DPAD_DOWN':       'DOWN',
-    'BTN_DPAD_LEFT':       'LEFT',
-    'BTN_DPAD_RIGHT':      'RIGHT',
-    'BTN_DPAD_UP':         'UP',
-    'BTN_EAST':            'A',
-    'BTN_NORTH':           'X',
-    'BTN_SOUTH':           'B',
-    'BTN_TL':              'L1',
-    'BTN_TL2':             'L2',
-    'BTN_TR':              'R1',
-    'BTN_TR2':             'R2',
-    'BTN_TRIGGER_HAPPY_1': 'SELECT',
-    'BTN_TRIGGER_HAPPY_2': 'START',
-    'BTN_TRIGGER_HAPPY_3': 'L3',
-    'BTN_TRIGGER_HAPPY_4': 'R3',
-    'BTN_TRIGGER_HAPPY_5': 'FN',
-    'BTN_WEST':            'Y',
+    'ABS_RX':             'RIGHTX',
+    'ABS_RY':             'RIGHTY',
+    'ABS_X':              'LEFTX',
+    'ABS_Y':              'LEFTY',
+    'BTN_DPAD_DOWN':      'DOWN',
+    'BTN_DPAD_LEFT':      'LEFT',
+    'BTN_DPAD_RIGHT':     'RIGHT',
+    'BTN_DPAD_UP':        'UP',
+    'BTN_EAST':           'A',
+    'BTN_NORTH':          'X',
+    'BTN_SOUTH':          'B',
+    'BTN_TL':             'L1',
+    'BTN_TL2':            'L2',
+    'BTN_TR':             'R1',
+    'BTN_TR2':            'R2',
+    'BTN_TRIGGER_HAPPY1': 'SELECT',
+    'BTN_TRIGGER_HAPPY2': 'START',
+    'BTN_TRIGGER_HAPPY3': 'L3',
+    'BTN_TRIGGER_HAPPY4': 'R3',
+    'BTN_TRIGGER_HAPPY5': 'FN',
+    'BTN_WEST':           'Y',
 }
 R36S_TO_INPUT = {v:k for k,v in INPUT_TO_R36S.items()}
 
@@ -48,7 +48,6 @@ def get_controller_events():
     while True:
         events = get_gamepad()
         for event in events:
-            print("DEBUG: !!!%s!!! (%s)" % (event.code, type(event.code)))
             if event.code in INPUT_TO_R36S:
                 yield (INPUT_TO_R36S[event.code], event.state)
 
