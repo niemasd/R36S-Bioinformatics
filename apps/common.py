@@ -115,7 +115,6 @@ def select_options_dialog(values, title=None, text=None, select_multi=False):
         clear_screen()
         print('\n'.join(lines), end='')
         lines[curr_ind] = '   ' + lines[curr_ind][3:]
-        exit() # TODO
 
         # listen for user input
         for button, state in get_controller_events():
