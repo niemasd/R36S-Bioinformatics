@@ -3,6 +3,7 @@
 Hello World app
 '''
 from common import get_controller_events
+from time import sleep
 if __name__ == "__main__":
     print("Welcome to R36S-Bioinformatics!")
     print("This 'Hello, World!' app will print your button inputs.")
@@ -15,4 +16,6 @@ if __name__ == "__main__":
         elif button == 'SELECT':
             select_pressed = (state == 1)
         if start_pressed and select_pressed:
+            print("Exiting :-)")
+            sleep(5)
             exit()
