@@ -4,7 +4,9 @@ Common functions and classes for R36S-Bioinformatics
 '''
 
 # general imports
+from os import system
 from pathlib import Path
+from sys import stdout
 from time import sleep
 import re
 
@@ -53,9 +55,9 @@ def pad_to_center(s, max_width=SCREEN_WIDTH):
     else:
         return ' '*((max_width - visible_length) // 2) + s
 
-# print a full-screen blank string to clear the screen
-def clear_screen(screen_width=SCREEN_WIDTH, screen_height=SCREEN_HEIGHT):
-    print(' '*(screen_width*screen_height))
+# clear the terminal screen
+def clear_screen():
+    system('clear')
 
 # generator to yield each controller event as (button, state) tuples
 # button states: 0 = unpressed; 1 = pressed
