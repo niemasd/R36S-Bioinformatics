@@ -9,6 +9,7 @@ from time import sleep
 
 # general constants
 ROOT_PATH = Path('/')
+SCREEN_HEIGHT = 10
 SCREEN_WIDTH = 80
 
 # import `inputs`: https://github.com/zeth/inputs
@@ -55,7 +56,7 @@ def get_controller_events():
 
 # file selector TODO FIX
 def select_file(curr_path=Path('~').resolve(), select_folder=False):
-    print('0'*SCREEN_WIDTH)
+    print('\n'.join('0'*SCREEN_WIDTH for _ in range(SCREEN_HEIGHT)), end='')
     sleep(5)
     title = "Select File/Folder"
     while True:
