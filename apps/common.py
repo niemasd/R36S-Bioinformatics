@@ -60,7 +60,7 @@ def clear_screen():
     system('clear')
 
 # print lines to screen, and try to center around a specific index if there are more lines than the max
-def print_lines(lines, center_ind=0, max_height=SCREEN_HEIGHT):
+def print_lines(lines, center_ind=0, max_width=SCREEN_WIDTH, max_height=SCREEN_HEIGHT):
     if len(lines) <= max_height:
         shown_lines = lines
     else:
@@ -71,6 +71,7 @@ def print_lines(lines, center_ind=0, max_height=SCREEN_HEIGHT):
             shown_lines = lines[-max_height:]
         else:
             shown_lines = lines[center_ind - half_height : center_ind + half_height]
+    shown_lines = [l[:max_width] for l in shown_lines]
     clear_screen()
     print('\n'.join(shown_lines), end='')
 
@@ -92,11 +93,9 @@ def message_dialog(title=None, text=None):
     if text is not None:
         lines += [s.rstrip() for s in text.splitlines()]
     print_lines(lines)
-    while True:
-        for button, state in get_controller_events():
-            print(button)
-            if button in {'A', 'B', 'START'}:
-                return
+    for button, state in get_controller_events():
+        if state == 1 and button in {'A', 'B', 'START'}:
+            return
 
 # mimic the prompt_toolkit radiolist_dialog: https://python-prompt-toolkit.readthedocs.io/en/stable/pages/dialogs.html#radio-list-dialog
 def select_options_dialog(values, title=None, text=None, select_multi=False, small_jump=5, big_jump=10):
