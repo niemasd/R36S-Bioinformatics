@@ -62,6 +62,23 @@ KEYBOARD_UPPER = [
     ['Z', 'X', 'C', 'V', 'B', 'N', 'M', '<', '>', '?', '|', 'SPACE'],
 ]
 
+# Minimap2 presets
+MINIMAP2_PRESETS = {
+    'lr:hq':     'accurate long reads (error rate <1%) against a reference genome',
+    'splice':    'spliced alignment for long reads',
+    'splice:hq': 'spliced alignment for accurate long reads',
+    'asm5':      'asm-to-ref mapping, for ~0.1% sequence divergence',
+    'asm10':     'asm-to-ref mapping, for ~1% sequence divergence',
+    'asm20':     'asm-to-ref mapping, for ~5% sequence divergence',
+    'sr':        'short reads against a reference',
+    'map-pb':    'CLR vs reference mapping',
+    'map-hifi':  'HiFi vs reference mapping',
+    'map-ont':   'Nanopore vs reference mapping',
+    'map-iclr':  'ICLR vs reference mapping',
+    'ava-pb':    'PacBio CLR read overlap',
+    'ava-ont':   'Nanopore read overlap',
+}
+
 # add spaces to the left of a string to center it to a max length
 def pad_to_center(s, max_width=SCREEN_WIDTH):
     visible_length = len(s)
