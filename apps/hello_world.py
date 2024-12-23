@@ -2,7 +2,7 @@
 '''
 Hello World app
 '''
-from common import get_controller_events
+from common import get_controller_events, pad_to_center
 VERSION = '1.0.0'
 if __name__ == "__main__":
     print(pad_to_center("= Hello World v%s =" % VERSION))
