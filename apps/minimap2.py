@@ -29,7 +29,13 @@ if __name__ == "__main__":
         elif result == 'ref':
             ref_path = select_file(title="Select Reference Genome FASTA", curr_path=Path('/'))
         elif result == 'reads':
-            reads_path = select_file(title="Select Reads FASTQ File(s)", curr_path=Path('/'), select_multi=True)
+            reads_dir_path = select_file(title="Select path containing Reads FASTQ(s)", curr_path=Path('/'), select_path=True)
+            if reads_dir_path is None:
+                continue
+            tmp = select_file(title="Select Reads FASTQ(s)", curr_path=reads_dir_path, select_multi=True)
+            if tmp is None or len(tmp) == 0:
+                continue
+            reads_paths = sorted(tmp)
         elif result == "run":
             if ref_path is None:
                 message_dialog(title="ERROR", text="Must select a reference genome")
