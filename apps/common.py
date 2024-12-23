@@ -207,11 +207,11 @@ def select_options_dialog(values, title=None, text=None, select_multi=False, sma
                     if select_multi:
                         if curr_ind in selection:
                             selection.remove(curr_ind)
-                            lines[curr_ind] = lines[curr_ind][:4] + ' ' + lines[curr_ind][:5]
+                            lines[curr_ind] = lines[curr_ind][:4] + ' ' + lines[curr_ind][5:]
                             break
                         else:
                             selection.add(curr_ind)
-                            lines[curr_ind] = lines[curr_ind][:4] + '*' + lines[curr_ind][:5]
+                            lines[curr_ind] = lines[curr_ind][:4] + '*' + lines[curr_ind][5:]
                             break
                     else:
                         return return_values[curr_ind]
