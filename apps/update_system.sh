@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 # app to update dependencies
+VERSION='1.0.0'
+echo "                            = Update System v$VERSION ="
 echo "Updating Linux dependencies..."
 sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get autoremove -y && sudo apt-get clean
 echo "Updating Python dependencies..."
