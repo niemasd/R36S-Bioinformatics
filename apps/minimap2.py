@@ -5,6 +5,7 @@ Minimap2 app
 from common import clear_screen, message_dialog, select_file, select_options_dialog
 from os import system
 from pathlib import Path
+from time import sleep # TODO DELETE
 VERSION = '1.0.0'
 if __name__ == "__main__":
     title = "Minimap2 App v%s" % VERSION
@@ -39,6 +40,7 @@ if __name__ == "__main__":
                 reads_paths = sorted(tmp)
             except Exception as e:
                 print(str(e))
+                sleep(2)
         elif result == "run":
             if ref_path is None:
                 message_dialog(title="ERROR", text="Must select a reference genome")
