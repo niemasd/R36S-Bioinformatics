@@ -6,5 +6,13 @@ from common import select_file
 from pathlib import Path
 VERSION = '1.0.0'
 if __name__ == "__main__":
+    title = "Minimap2 App v%s" % VERSION
+    ref_path = None
+    reads_paths = list()
+    minimap2_preset = None
+    out_prefix = None
     while True:
-        pass
+        values = [
+            (None, "Quit"),
+        ]
+        select_options_dialog(title=title, values=values)
