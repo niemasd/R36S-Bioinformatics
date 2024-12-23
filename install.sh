@@ -19,6 +19,7 @@ echo "Installing Python dependencies..."
 (python3 -m pip install --upgrade --no-cache-dir $DEPS_PYTHON) || (echo "Failed to install Python dependencies" && sleep 5 && exit 1)
 
 # install Minimap2
+echo "Installing Minimap2..."
 wget -qO- "https://github.com/lh3/minimap2/archive/refs/tags/v2.28.tar.gz" | tar -zx
 cd minimap2-*
 make
