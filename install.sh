@@ -62,6 +62,11 @@ sudo mv viral_consensus /usr/bin/viral_consensus
 cd ..
 rm -rf ViralConsensus-*
 
+# install ViralMSA
+echo "Installing ViralMSA..."
+sudo wget -q -O /usr/bin/ViralMSA.py "https://github.com/niemasd/ViralMSA/releases/download/1.1.44/ViralMSA.py"
+sudo chmod a+x /usr/bin/ViralMSA.py
+
 # find roms path
 echo "Finding roms path..."
 if [[ "$(ls /roms | wc -l)" -ge "$(ls /roms2 | wc -l)" ]] ; then
