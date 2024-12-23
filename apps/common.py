@@ -5,8 +5,8 @@ Common functions and classes for R36S-Bioinformatics
 
 # general imports
 from gzip import open as gopen
-from os import system
 from pathlib import Path
+from subprocess import run
 from sys import stdout
 from time import sleep
 import re
@@ -89,7 +89,7 @@ def pad_to_center(s, max_width=SCREEN_WIDTH):
 
 # clear the terminal screen
 def clear_screen():
-    system('clear')
+    run('clear', shell=True)
 
 # print lines to screen, and try to center around a specific index if there are more lines than the max
 def print_lines(lines, center_ind=0, left_col=0, max_width=SCREEN_WIDTH, max_height=SCREEN_HEIGHT):
