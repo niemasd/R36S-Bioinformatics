@@ -31,7 +31,7 @@ if __name__ == "__main__":
         elif result == "run":
             if ref_path is None:
                 message_dialog(title="ERROR", text="Must select a reference genome")
-            elif len(reads_path) == 0:
+            elif len(reads_paths) == 0:
                 message_dialog(title="ERROR", text="Must select at least one reads file")
             elif minimap2_preset is None:
                 message_dialog(title="ERROR", text="Must select a Minimap2 preset")
