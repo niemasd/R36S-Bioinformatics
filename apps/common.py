@@ -323,15 +323,13 @@ def select_file(curr_path=Path('~').resolve(), select_folder=False, select_multi
         text = "Current Directory: %s" % curr_path
         values = list()
         if select_folder and curr_path.is_dir():
-            values.append((curr_path.parent, '=== Select Current Directory ==='))
+            values.append(('.', '=== Select Current Directory ==='))
         if curr_path != ROOT_PATH:
             values.append((curr_path.parent, '../'))
         values += sorted(((p, p.name + '/' if p.is_dir() else p.name) for p in curr_path.glob('*') if (not select_folder) or p.is_dir()), key=lambda x: x[0].name.lower())
         result = select_options_dialog(title=title, text=text, values=values, select_multi=select_multi)
-        if result is None or result.is_file():
+        if result is None or result == '.' or result.is_file():
             return result
-        elif result == '..':
-            curr_path = curr_path.parent
         elif result.is_dir():
             curr_path = result
         else:
