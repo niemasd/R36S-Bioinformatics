@@ -5,6 +5,7 @@ Minimap2 app
 from common import clear_screen, message_dialog, MINIMAP2_PRESETS, select_file, select_options_dialog
 from os import system
 from pathlib import Path
+from time import sleep # TODO
 VERSION = '1.0.0'
 if __name__ == "__main__":
     # set things up
@@ -67,9 +68,12 @@ if __name__ == "__main__":
 
         # select output file prefix
         elif result == 'out_prefix':
-            tmp = text_input_dialog(title="Enter output file prefix")
-            if tmp is not None and len(tmp) != 0:
-                out_prefix = tmp
+            try:
+                tmp = text_input_dialog(title="Enter output file prefix")
+                if tmp is not None and len(tmp) != 0:
+                    out_prefix = tmp
+            except Exception as e:
+                print('\n\n\n%s' % e); sleep(2); exit() # TODO
 
         # select Minimap2 preset
         elif result == 'preset':
