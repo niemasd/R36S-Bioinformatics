@@ -8,23 +8,33 @@ from pathlib import Path
 from time import sleep # TODO DELETE
 VERSION = '1.0.0'
 if __name__ == "__main__":
+    # set things up
     title = "Minimap2 App v%s" % VERSION
     ref_path = None
     reads_paths = list()
     out_folder = None
     out_prefix = None
     minimap2_preset = None
+
+    # set up text
+    text = ''
+    text += "\n- Reference Genome: %s" % ref_path
+    text += "\n- Reads:\n%s" % '\n'.join("  - %s" % r for r in reads_paths)
+    text += "\n- Output File: %s" % (None if out_folder is None else '%s/%s.bam' % (out_folder, out_prefix))
+    text += "\n- Minimap2 Preset: %s" % minimap2_preset
+
+    # app loop
     while True:
         values = [
-            ('run', "Run"),
-            ('ref', "Reference Genome: %s" % ref_path),
-            ('reads', "Reads: %s" % None if len(reads_paths) == 0 else ', '.join(str(r) for r in reads_paths)),
-            ('out_folder', "Output Folder: %s" % out_folder),
-            ('out_prefix', "Output File Prefix: %s" % out_prefix),
-            ('preset', "Preset: %s" % minimap2_preset),
+            ('run', "Run Minimap2"),
+            ('ref', "Select reference genome FASTA"),
+            ('reads', "Select reads FASTQ(s)"),
+            ('out_folder', "Select output folder"),
+            ('out_prefix', "Select output file prefix"),
+            ('preset', "Select Minimap2 preset"),
             (None, "Quit"),
         ]
-        result = select_options_dialog(title=title, values=values)
+        result = select_options_dialog(title=title, text=text, values=values)
         if result is None:
             break
         elif result == 'ref':
