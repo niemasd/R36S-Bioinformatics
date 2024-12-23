@@ -5,7 +5,7 @@
 VERSION='0.0.1'
 ES_SYSTEMS_CFG_PATH='/etc/emulationstation/es_systems.cfg'
 ES_SYSTEMS_CFG_BACKUP_PATH="$ES_SYSTEMS_CFG_PATH.r36s-bioinformatics.bak"
-DEPS_LINUX='cmake g++ git libc6-dev libstdc++-9-dev linux-libc-dev make ninja-build python3 python3-pip wget'
+DEPS_LINUX='build-essential cmake g++ git libc6-dev libstdc++-9-dev linux-libc-dev make ninja-build python3 python3-pip wget zlib1g-dev'
 DEPS_PYTHON='inputs'
 ES_SYSTEMS_CFG_BIOINFORMATICS_SYSTEM_ENTRY='\t<system>\n\t\t<name>Bioinformatics</name>\n\t\t<fullname>Bioinformatics</fullname>\n\t\t<path>{roms_dir}/bioinformatics/</path>\n\t\t<extension>.sh .SH</extension>\n\t\t<command>sudo chmod 666 /dev/tty1; %ROM% 2>&1 > /dev/tty1; printf "\\033c" >> /dev/tty1</command>\n\t\t<platform>bioinformatics</platform>\n\t\t<theme>bioinformatics</theme>\n\t</system>'
 
@@ -26,7 +26,7 @@ python3 -m pip install --upgrade --no-cache-dir $DEPS_PYTHON
 echo "Installing Minimap2..."
 wget -qO- "https://github.com/lh3/minimap2/archive/refs/tags/v2.28.tar.gz" | tar -zx
 cd minimap2-*
-make
+make arm_neon=1 aarch64=1
 chmod a+x minimap2
 sudo mv minimap2 /usr/bin/minimap2
 cd ..
