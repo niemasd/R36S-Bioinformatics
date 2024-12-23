@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 # app to update dependencies + apps
+VERSION='1.0.0'
+
+# greet user
+echo "= Update Apps v$VERSION ="
 
 # find and update R36S-Bioinformatics repo path
 echo "Finding R36S-Bioinformatics repo in home directory (~)..."
