@@ -352,7 +352,7 @@ def view_text_file(path):
             f = gopen(path, 'rt')
         else:
             f = open(path, 'rt')
-        data = f.read()
+        data = f.read().replace('\t', '    ')
         f.close()
     except:
         message_dialog(title="ERROR", text="Failed to open file:\n%s" % path)
