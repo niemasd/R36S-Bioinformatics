@@ -18,7 +18,7 @@ if __name__ == "__main__":
             ('run', "Run"),
             ('ref', "Reference Genome: %s" % ref_path),
             ('reads', "Reads: %s" % None if len(reads_paths) == 0 else ', '.join(str(r) for r in reads_paths)),
-            ('out_folder', "Output Folder: %s" % out_folder)
+            ('out_folder', "Output Folder: %s" % out_folder),
             ('out_prefix', "Output File Prefix: %s" % out_prefix),
             ('preset', "Preset: %s" % minimap2_preset),
             (None, "Quit"),
