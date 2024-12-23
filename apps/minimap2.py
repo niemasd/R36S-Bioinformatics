@@ -32,7 +32,6 @@ if __name__ == "__main__":
         elif result == 'reads':
             try:
                 reads_dir_path = select_file(title="Select path containing Reads FASTQ(s)", curr_path=Path('/'), select_folder=True)
-                print("\n\n\nPATH: %s" % reads_dir_path); sleep(2); exit() # TODO
                 if reads_dir_path is None:
                     continue
                 tmp = select_file(title="Select Reads FASTQ(s)", curr_path=reads_dir_path, select_multi=True)
