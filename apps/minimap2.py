@@ -26,6 +26,8 @@ if __name__ == "__main__":
         result = select_options_dialog(title=title, values=values)
         if result is None:
             break
+        elif result == 'ref':
+            ref_path = select_file(title="Select Reference Genome FASTA", curr_path=Path('/'))
         elif result == "run":
             if ref_path is None:
                 message_dialog(title="ERROR", text="Must select a reference genome")
