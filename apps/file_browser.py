@@ -8,7 +8,7 @@ VERSION = '1.0.0'
 if __name__ == "__main__":
     curr_path = Path('/')
     while True:
-        result = select_file(title="File Browser v%s", curr_path=curr_path)
+        result = select_file(title="File Browser v%s" % VERSION, curr_path=curr_path)
         if result is None:
             break
         else:
