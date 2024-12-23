@@ -366,5 +366,5 @@ def view_text_file(path, max_num_lines=1000):
         message_dialog(title="ERROR", text="Failed to open file:\n%s" % path)
     data = '\n'.join(lines)
     if truncated:
-        data = "%s\n%s" % (pad_to_center("= ONLY SHOWING FIRST 1000 LINE ="), data)
+        data = "%s\n%s" % (pad_to_center("= ONLY SHOWING FIRST %d LINES =" % max_num_lines), data)
     message_dialog(title=str(path), text=data)
