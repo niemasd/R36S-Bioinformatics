@@ -143,13 +143,13 @@ def select_options_dialog(values, title=None, text=None, select_multi=False, sma
         lines.append(pad_to_center('= %s =' % title))
     if select_multi:
         lines.append(pad_to_center("Press START when selection is complete"))
+    lines.append(pad_to_center("Press SELECT to cancel"))
     if text is not None:
         lines += [s.rstrip() for s in text.splitlines()]
     if title is not None or text is not None or select_multi:
         lines.append('') # add empty line between title/text and options
 
     # set up selection
-    values = [(None, "= Cancel =")] + values
     first_selectable_ind = len(lines)
     return_values = [None]*len(lines) + [v for v,t in values]
     lines += [('   ( ) ' + t) for v,t in values]
@@ -182,9 +182,7 @@ def select_options_dialog(values, title=None, text=None, select_multi=False, sma
                     break
             elif state == 1:
                 if button == 'A':
-                    if curr_ind == first_selectable_ind: # Cancel option
-                        return None
-                    elif select_multi:
+                    if select_multi:
                         if curr_ind in selection:
                             selection.remove(curr_ind)
                             lines[curr_ind] = lines[curr_ind][:4] + ' ' + lines[curr_ind][:5]
@@ -195,6 +193,8 @@ def select_options_dialog(values, title=None, text=None, select_multi=False, sma
                             break
                     else:
                         return return_values[curr_ind]
+                elif button == 'SELECT':
+                    return None
                 elif button == 'B' and lines[first_selectable_ind + 1] == '   ( ) ../':
                     return return_values[first_selectable_ind + 1]
                 elif button == 'START' and select_multi:
