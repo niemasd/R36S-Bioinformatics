@@ -39,7 +39,7 @@ if __name__ == "__main__":
                     continue
                 reads_paths = sorted(tmp)
             except Exception as e:
-                print(str(e))
+                print('\n\n\n%s' % str(e))
                 sleep(2)
         elif result == "run":
             if ref_path is None:
