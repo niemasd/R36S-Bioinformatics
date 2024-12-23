@@ -346,7 +346,8 @@ def view_file_info(path):
     message_dialog(title=title, text=text)
 
 # view text file
-def view_text_file(path):
+def view_text_file(path, max_num_lines=1000):
+    truncated = False
     try:
         clear_screen()
         print("Loading file:\n%s" % path)
@@ -354,8 +355,16 @@ def view_text_file(path):
             f = gopen(path, 'rt')
         else:
             f = open(path, 'rt')
-        data = f.read().replace('\t', '    ')
+        lines = list()
+        for line_num, line in enumerate(f):
+            if line_num == max_num_lines:
+                truncated = True
+                break
+            lines.append(line.replace('\t', '    '))
         f.close()
     except:
         message_dialog(title="ERROR", text="Failed to open file:\n%s" % path)
+    data = '\n'.join(lines)
+    if truncated:
+        data = "%s\n%s" % (pad_to_center("= ONLY SHOWING FIRST 1000 LINE ="), data)
     message_dialog(title=str(path), text=data)
