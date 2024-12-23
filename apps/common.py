@@ -158,7 +158,7 @@ def message_dialog(title=None, text=None, max_width=SCREEN_WIDTH, max_height=SCR
                     break
 
 # mimic the prompt_toolkit radiolist_dialog: https://python-prompt-toolkit.readthedocs.io/en/stable/pages/dialogs.html#radio-list-dialog
-def select_options_dialog(values, title=None, text=None, select_multi=False, small_jump=5, big_jump=10):
+def select_options_dialog(values, title=None, text=None, select_multi=False, small_jump=5, big_jump=10, B_match='( ) ../'):
     # set up title + text
     lines = list()
     if title is not None:
@@ -217,8 +217,11 @@ def select_options_dialog(values, title=None, text=None, select_multi=False, sma
                         return return_values[curr_ind]
                 elif button == 'SELECT':
                     return None
-                elif button == 'B' and lines[first_selectable_ind + 1] == '   ( ) ../':
-                    return return_values[first_selectable_ind + 1]
+                elif button == 'B':
+                and lines[first_selectable_ind + 1] == '   ( ) ../':
+                    tmp = [i for i in range(len(lines)) if lines[i].strip().endswith(B_match)]
+                    if len(tmp) != 0:
+                        return return_values[tmp[0]]
                 elif button == 'START' and select_multi:
                     return [return_values[i] for i in sorted(selection)]
                 elif button == 'UP':
