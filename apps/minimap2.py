@@ -2,7 +2,8 @@
 '''
 Minimap2 app
 '''
-from common import message_dialog, select_file, select_options_dialog
+from common import clear_screen, message_dialog, select_file, select_options_dialog
+from os import system
 from pathlib import Path
 VERSION = '1.0.0'
 if __name__ == "__main__":
@@ -33,4 +34,10 @@ if __name__ == "__main__":
             elif out_prefix is None:
                 message_dialog(title="ERROR", text="Must enter an output file prefix")
             else:
-                exit() # TODO RUN MINIMAP2
+                command = "minimap2 -a -t 1 -x %s %s %s | samtools view --threads 1 -o %s.bam" % (minimap2_preset, ref_path, ' '.join(reads_paths), out_prefix)
+                clear_screen()
+                print("Running: %s" % command)
+                system(command)
+                print("Closing Minimap2 app in 5 seconds...")
+                sleep(5)
+                exit()
