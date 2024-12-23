@@ -153,7 +153,7 @@ if __name__ == "__main__":
             else:
                 try:
                     out_folder_prefix = out_folder / out_prefix
-                    command = 'viral_consensus -i "%s" -r "%s" -o "%s.consensus.fa" -op "%s.pos_counts.tsv" -oi "%s.ins_counts.json" -q %d -d %d -f %s -a %s' % (reads_path, ref_path, out_folder_prefix, out_folder_prefix, out_folder_prefix, out_folder_prefix, min_qual, min_depth, min_freq, ambig)
+                    command = 'viral_consensus -i "%s" -r "%s" -o "%s.consensus.fa" -op "%s.pos_counts.tsv" -oi "%s.ins_counts.json" -q %d -d %d -f %s -a %s' % (reads_path, ref_path, out_folder_prefix, out_folder_prefix, out_folder_prefix, min_qual, min_depth, min_freq, ambig)
                     if primer_bed_path is not None:
                         command += (' -p "%s" -po %d' % (primer_bed_path, primer_offset))
                     clear_screen()
