@@ -349,7 +349,7 @@ def view_file_info(path):
 def view_text_file(path):
     try:
         clear_screen()
-        print(text="Loading file:\n%s" % path)
+        print("Loading file:\n%s" % path)
         if path.suffix.lower() == '.gz':
             f = gopen(path, 'rt')
         else:
