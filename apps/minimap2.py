@@ -3,8 +3,8 @@
 Minimap2 app
 '''
 from common import clear_screen, message_dialog, MINIMAP2_PRESETS, select_file, select_options_dialog, text_input_dialog
-from os import system
 from pathlib import Path
+from subprocess import run
 from time import sleep
 VERSION = '1.0.0'
 if __name__ == "__main__":
@@ -94,7 +94,7 @@ if __name__ == "__main__":
                 command = 'minimap2 -a -t 1 -x "%s" "%s" %s | samtools view --threads 1 -o "%s.bam"' % (preset, ref_path, ' '.join('"%s"' % r for r in reads_paths), out_folder / out_prefix)
                 clear_screen()
                 print("Running: %s" % command)
-                system(command)
+                run(command, shell=True)
                 print("Closing Minimap2 app in 5 seconds...")
                 sleep(5)
                 exit()
