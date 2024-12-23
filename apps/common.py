@@ -218,7 +218,6 @@ def select_options_dialog(values, title=None, text=None, select_multi=False, sma
                 elif button == 'SELECT':
                     return None
                 elif button == 'B':
-                and lines[first_selectable_ind + 1] == '   ( ) ../':
                     tmp = [i for i in range(len(lines)) if lines[i].strip().endswith(B_match)]
                     if len(tmp) != 0:
                         return return_values[tmp[0]]
