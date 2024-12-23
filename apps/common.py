@@ -204,7 +204,9 @@ def select_options_dialog(values, title=None, text=None, select_multi=False, sma
                     break
             elif state == 1:
                 if button == 'A':
-                    if select_multi:
+                    if return_values[curr_ind].is_dir():
+                        return return_values[curr_ind]
+                    elif select_multi:
                         if curr_ind in selection:
                             selection.remove(curr_ind)
                             lines[curr_ind] = lines[curr_ind][:4] + ' ' + lines[curr_ind][5:]
