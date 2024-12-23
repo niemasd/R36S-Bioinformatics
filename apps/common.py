@@ -360,7 +360,7 @@ def view_text_file(path, max_num_lines=1000):
             if line_num == max_num_lines:
                 truncated = True
                 break
-            lines.append(line.replace('\t', '    '))
+            lines.append(line.rstrip('\n').replace('\t', '    '))
         f.close()
     except:
         message_dialog(title="ERROR", text="Failed to open file:\n%s" % path)
