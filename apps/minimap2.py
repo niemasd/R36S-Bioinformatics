@@ -92,7 +92,7 @@ if __name__ == "__main__":
                 message_dialog(title="ERROR", text="Must select a Minimap2 preset")
             else:
                 try:
-                    command = "minimap2 -a -t 1 -x %s %s %s | samtools view --threads 1 -o %s.bam" % (preset, ref_path, ' '.join(reads_paths), out_folder / out_prefix)
+                    command = "minimap2 -a -t 1 -x %s %s %s | samtools view --threads 1 -o %s.bam" % (preset, ref_path, ' '.join(str(r) for r in reads_paths), out_folder / out_prefix)
                     clear_screen()
                     print("Running: %s" % command)
                     system(command)
