@@ -9,17 +9,21 @@ if __name__ == "__main__":
     title = "Minimap2 App v%s" % VERSION
     ref_path = None
     reads_paths = list()
-    minimap2_preset = None
     out_prefix = None
+    minimap2_preset = None
     while True:
         values = [
-            ("Run", "Run"),
+            ('run', "Run"),
+            ('ref', "Reference Genome: %s" % ref_path),
+            ('reads', "Reads: %s" % None if len(reads_path) == 0 else ', '.join(str(r) for r in reads_path)),
+            ('out', "Output Prefix: %s" % out_prefix),
+            ('preset', "Preset: %s" % minimap2_preset),
             (None, "Quit"),
         ]
         result = select_options_dialog(title=title, values=values)
         if result is None:
             break
-        elif result == "Run":
+        elif result == "run":
             if ref_path is None:
                 message_dialog(title="ERROR", text="Must select a reference genome")
             elif len(reads_path) == 0:
