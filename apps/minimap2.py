@@ -62,7 +62,7 @@ if __name__ == "__main__":
         # select output folder
         elif result == 'out_folder':
             tmp = select_file(title="Select output folder", curr_path=Path('/'), select_folder=True)
-            if tmp is not None and len(tmp) != 0:
+            if tmp is not None:
                 out_folder = tmp
 
         # select output file prefix
