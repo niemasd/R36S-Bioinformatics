@@ -5,6 +5,7 @@ Minimap2 app
 from common import clear_screen, message_dialog, MINIMAP2_PRESETS, select_file, select_options_dialog, text_input_dialog
 from os import system
 from pathlib import Path
+from time import sleep
 VERSION = '1.0.0'
 if __name__ == "__main__":
     # set things up
