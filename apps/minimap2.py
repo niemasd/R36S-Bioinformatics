@@ -19,7 +19,7 @@ if __name__ == "__main__":
     # set up text
     text = ''
     text += "\n- Reference Genome: %s" % ref_path
-    text += "\n- Reads:\n%s" % '\n'.join("  - %s" % r for r in reads_paths)
+    text += "\n- Reads: %s" % (None if len(reads_paths) == 0 else ('\n' + '\n'.join("  - %s" % r for r in reads_paths)))
     text += "\n- Output File: %s" % (None if out_folder is None else '%s/%s.bam' % (out_folder, out_prefix))
     text += "\n- Minimap2 Preset: %s" % minimap2_preset
 
