@@ -3,7 +3,10 @@
 Hello World app
 '''
 from common import get_controller_events
+VERSION = '1.0.0'
 if __name__ == "__main__":
+    print(pad_to_center("= Hello World v%s =" % VERSION))
+    print()
     print("Welcome to R36S-Bioinformatics!")
     print("This 'Hello, World!' app will print your button inputs.")
     print("To exit, press 'START' and 'SELECT' simultaneously.")
