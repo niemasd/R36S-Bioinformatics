@@ -31,7 +31,7 @@ if __name__ == "__main__":
             ref_path = select_file(title="Select Reference Genome FASTA", curr_path=Path('/'))
         elif result == 'reads':
             try:
-                reads_dir_path = select_file(title="Select path containing Reads FASTQ(s)", curr_path=Path('/'), select_path=True)
+                reads_dir_path = select_file(title="Select path containing Reads FASTQ(s)", curr_path=Path('/'), select_folder=True)
                 if reads_dir_path is None:
                     continue
                 tmp = select_file(title="Select Reads FASTQ(s)", curr_path=reads_dir_path, select_multi=True)
