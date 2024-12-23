@@ -280,7 +280,10 @@ def text_input_dialog(title=None, text=None, curr_string=''):
                 elif button == 'SELECT':
                     return None
                 elif button == 'A':
-                    curr_string += keyboard[curr_row][curr_col]
+                    if keyboard[curr_row][curr_col] == 'SPACE':
+                        curr_string += ' '
+                    else:
+                        curr_string += keyboard[curr_row][curr_col]
                     break
                 elif button == 'Y':
                     curr_string += '\t'
