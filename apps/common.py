@@ -110,7 +110,7 @@ def message_dialog(title=None, text=None, max_width=SCREEN_WIDTH, max_height=SCR
     left_col = 0
     half_height = max_height // 2
     min_ind = half_height
-    max_ind = len(lines) - max_height
+    max_ind = len(lines) - max_height + 1
     curr_ind = min_ind
     while True:
         print_lines(lines, center_ind=curr_ind, left_col=left_col, max_width=max_width, max_height=max_height)
