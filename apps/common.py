@@ -348,7 +348,8 @@ def view_file_info(path):
 # view text file
 def view_text_file(path):
     try:
-        message_dialog(title="Loading", text="Loading file:\n%s" % path)
+        clear_screen()
+        print(text="Loading file:\n%s" % path)
         if path.suffix.lower() == '.gz':
             f = gopen(path, 'rt')
         else:
