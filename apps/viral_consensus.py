@@ -23,7 +23,7 @@ if __name__ == "__main__":
 
     # define app values
     values = [
-        ('run', "Run Minimap2"),
+        ('run', "Run ViralConsensus"),
         ('reads', "Select reads SAM/BAM/CRAM"),
         ('ref', "Select reference genome FASTA"),
         ('out_folder', "Select output folder"),
