@@ -151,16 +151,15 @@ if __name__ == "__main__":
             elif out_prefix is None:
                 message_dialog(title="ERROR", text="Must enter an output file prefix")
             else:
-                try:
-                    out_folder_prefix = out_folder / out_prefix
-                    command = 'viral_consensus -i "%s" -r "%s" -o "%s.consensus.fa" -op "%s.pos_counts.tsv" -oi "%s.ins_counts.json" -q %d -d %d -f %s -a %s' % (reads_path, ref_path, out_folder_prefix, out_folder_prefix, out_folder_prefix, min_qual, min_depth, min_freq, ambig)
-                    if primer_bed_path is not None:
-                        command += (' -p "%s" -po %d' % (primer_bed_path, primer_offset))
-                    clear_screen()
-                    print("Running: %s" % command)
-                    run(command, shell=True)
-                    print("Closing ViralConsensus app in 5 seconds...")
-                except Exception as e:
-                    print('\n\n\n\n\n\n%s' % e)
+                out_folder_prefix = out_folder / out_prefix
+                command = 'viral_consensus -i "%s" -r "%s" -o "%s.consensus.fa" -op "%s.pos_counts.tsv" -oi "%s.ins_counts.json" -q %d -d %d -f %s -a %s' % (reads_path, ref_path, out_folder_prefix, out_folder_prefix, out_folder_prefix, min_qual, min_depth, min_freq, ambig)
+                if primer_bed_path is not None:
+                    command += (' -p "%s" -po %d' % (primer_bed_path, primer_offset))
+                clear_screen()
+                print("Running: %s" % command)
+                ret = run(command, shell=True, capture_output=True)
+                print(ret.stdout.decode())
+                print(ret.stderr.decode())
+                print("Closing ViralConsensus app in 5 seconds...")
                 sleep(5)
                 exit()
