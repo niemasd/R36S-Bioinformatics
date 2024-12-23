@@ -5,7 +5,7 @@
 VERSION='1.0.0'
 ES_SYSTEMS_CFG_PATH='/etc/emulationstation/es_systems.cfg'
 ES_SYSTEMS_CFG_BACKUP_PATH="$ES_SYSTEMS_CFG_PATH.r36s-bioinformatics.bak"
-DEPS_LINUX='build-essential cmake g++ git libc6-dev libstdc++-9-dev linux-libc-dev make ninja-build python3 python3-pip wget zlib1g-dev'
+DEPS_LINUX='autoconf build-essential bzip2 cmake g++ git libbz2-dev libc6-dev libcurl4-openssl-dev liblzma-dev libstdc++-9-dev linux-libc-dev make ninja-build python3 python3-pip wget zlib1g-dev'
 DEPS_PYTHON='inputs'
 ES_SYSTEMS_CFG_BIOINFORMATICS_SYSTEM_ENTRY='\t<system>\n\t\t<name>Bioinformatics</name>\n\t\t<fullname>Bioinformatics</fullname>\n\t\t<path>{roms_dir}/bioinformatics/</path>\n\t\t<extension>.sh .SH</extension>\n\t\t<command>sudo chmod 666 /dev/tty1; %ROM% 2>&1 > /dev/tty1; printf "\\033c" >> /dev/tty1</command>\n\t\t<platform>bioinformatics</platform>\n\t\t<theme>bioinformatics</theme>\n\t</system>'
 
@@ -22,6 +22,17 @@ sudo apt-get clean
 echo "Installing Python dependencies..."
 python3 -m pip install --upgrade --no-cache-dir $DEPS_PYTHON
 
+# install htslib
+echo "Installing htslib..."
+wget -qO- "https://github.com/samtools/htslib/releases/download/1.21/htslib-1.21.tar.bz2" | tar -xj
+cd htslib-*
+autoreconf -i
+./configure --prefix=/usr
+make
+sudo make install
+cd ..
+rm -rf htslib-*
+
 # install Minimap2
 echo "Installing Minimap2..."
 wget -qO- "https://github.com/lh3/minimap2/archive/refs/tags/v2.28.tar.gz" | tar -zx
@@ -31,6 +42,25 @@ chmod a+x minimap2
 sudo mv minimap2 /usr/bin/minimap2
 cd ..
 rm -rf minimap2-*
+
+# install samtools
+echo "Installing samtools..."
+wget -qO- "https://github.com/samtools/samtools/releases/download/1.21/samtools-1.21.tar.bz2" | tar -xj
+cd samtools-*
+./configure --prefix=/usr --without-curses
+make
+sudo make install
+cd ..
+rm -rf samtools-*
+
+# install ViralConsensus
+echo "Installing ViralConsensus..."
+wget -qO- "https://github.com/niemasd/ViralConsensus/archive/refs/tags/0.0.6.tar.gz" | tar -zx
+cd ViralConsensus-*
+make
+sudo mv viral_consensus /usr/bin/viral_consensus
+cd ..
+rm -rf ViralConsensus-*
 
 # find roms path
 echo "Finding roms path..."
