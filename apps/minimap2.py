@@ -83,14 +83,14 @@ if __name__ == "__main__":
                 message_dialog(title="ERROR", text="Must select a reference genome")
             elif len(reads_paths) == 0:
                 message_dialog(title="ERROR", text="Must select at least one reads file")
-            elif preset is None:
-                message_dialog(title="ERROR", text="Must select a Minimap2 preset")
             elif out_folder is None:
                 message_dialog(title="ERROR", text="Must select an output folder")
             elif out_prefix is None:
                 message_dialog(title="ERROR", text="Must enter an output file prefix")
+            elif preset is None:
+                message_dialog(title="ERROR", text="Must select a Minimap2 preset")
             else:
-                command = "minimap2 -a -t 1 -x %s %s %s | samtools view --threads 1 -o %s/%s.bam" % (preset, ref_path, ' '.join(reads_paths), out_folder, out_prefix)
+                command = "minimap2 -a -t 1 -x %s %s %s | samtools view --threads 1 -o %s.bam" % (preset, ref_path, ' '.join(reads_paths), out_folder / out_prefix)
                 clear_screen()
                 print("Running: %s" % command)
                 system(command)
