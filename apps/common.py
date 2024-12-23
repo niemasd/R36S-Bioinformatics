@@ -146,6 +146,7 @@ def message_dialog(title=None, text=None, max_width=SCREEN_WIDTH, max_height=SCR
                     break
                 elif button == 'R2':
                     curr_ind = min(curr_ind + small_jump, max_ind)
+                    break
                 elif button == 'DOWN':
                     curr_ind = min(curr_ind + 1, max_ind)
                     break
