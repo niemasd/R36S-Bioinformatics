@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-python3 "$SCRIPT_DIR/file_browser.py"
+python3 "$SCRIPT_DIR/minimap2.py"

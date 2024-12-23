@@ -4,6 +4,7 @@ Common functions and classes for R36S-Bioinformatics
 '''
 
 # general imports
+from gzip import open as gopen
 from os import system
 from pathlib import Path
 from sys import stdout
@@ -320,3 +321,16 @@ def view_file_info(path):
     text = '- Path: %s' % path
     text += '\n- Size: %s bytes' % '{:,}'.format(stat_result.st_size)
     message_dialog(title=title, text=text)
+
+# view text file
+def view_text_file(path):
+    try:
+        if path.suffix.lower() == '.gz':
+            f = gopen(path, 'rt')
+        else:
+            f = open(path, 'rt')
+        data = f.read()
+        f.close()
+    except:
+        message_dialog(title="ERROR", text="Failed to open file:\n%s" % path)
+    message_dialog(title=str(path), text=data)
