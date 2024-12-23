@@ -101,7 +101,7 @@ def get_controller_events():
                 yield (INPUT_TO_R36S[event.code], event.state)
 
 # mimic the prompt_toolkit message_dialog: https://python-prompt-toolkit.readthedocs.io/en/stable/pages/dialogs.html#message-box
-def message_dialog(title=None, text=None, max_width=SCREEN_WIDTH, max_height=SCREEN_HEIGHT):
+def message_dialog(title=None, text=None, max_width=SCREEN_WIDTH, max_height=SCREEN_HEIGHT, small_jump=5, big_jump=10):
     lines = list()
     if title is not None:
         lines.append(pad_to_center('= %s =' % title))
@@ -132,9 +132,20 @@ def message_dialog(title=None, text=None, max_width=SCREEN_WIDTH, max_height=SCR
             elif state == 1:
                 if button in {'A', 'B', 'START'}:
                     return
+                elif button == 'L1':
+                    curr_ind = max(curr_ind - big_jump, min_ind)
+                    break
+                elif button == 'L2':
+                    curr_ind = max(curr_ind - small_jump, min_ind)
+                    break
                 elif button == 'UP':
                     curr_ind = max(curr_ind - 1, min_ind)
                     break
+                elif button == 'R1':
+                    curr_ind = min(curr_ind + big_jump, max_ind)
+                    break
+                elif button == 'R2':
+                    curr_ind = min(curr_ind + small_jump, max_ind)
                 elif button == 'DOWN':
                     curr_ind = min(curr_ind + 1, max_ind)
                     break
