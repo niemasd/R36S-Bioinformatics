@@ -101,23 +101,26 @@ def get_controller_events():
                 yield (INPUT_TO_R36S[event.code], event.state)
 
 # mimic the prompt_toolkit message_dialog: https://python-prompt-toolkit.readthedocs.io/en/stable/pages/dialogs.html#message-box
-def message_dialog(title=None, text=None):
+def message_dialog(title=None, text=None, max_width=SCREEN_WIDTH, max_height=SCREEN_HEIGHT):
     lines = list()
     if title is not None:
         lines.append(pad_to_center('= %s =' % title))
     if text is not None:
         lines += [s.rstrip() for s in text.splitlines()]
     left_col = 0
-    curr_ind = 0
+    half_height = max_height // 2
+    min_ind = half_height
+    max_ind = len(lines) - max_height
+    curr_ind = min_ind
     while True:
-        print_lines(lines, center_ind=curr_ind, left_col=left_col)
+        print_lines(lines, center_ind=curr_ind, left_col=left_col, max_width=max_width, max_height=max_height)
         for button, state in get_controller_events():
             if button == 'LEFTY' or button == 'RIGHTY':
                 if state < 0:
-                    curr_ind = max(curr_ind - 1, 0)
+                    curr_ind = max(curr_ind - 1, min_ind)
                     break
                 elif state > 0:
-                    curr_ind = min(curr_ind + 1, len(lines) - 1)
+                    curr_ind = min(curr_ind + 1, max_ind)
                     break
             elif button == 'LEFTX' or button == 'RIGHTX':
                 if state < 0:
@@ -129,6 +132,12 @@ def message_dialog(title=None, text=None):
             elif state == 1:
                 if button in {'A', 'B', 'START'}:
                     return
+                elif button == 'UP':
+                    curr_ind = max(curr_ind - 1, min_ind)
+                    break
+                elif button == 'DOWN':
+                    curr_ind = min(curr_ind + 1, max_ind)
+                    break
                 elif button == 'LEFT':
                     left_col = max(left_col - 1, 0)
                     break
