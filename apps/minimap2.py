@@ -10,6 +10,7 @@ if __name__ == "__main__":
     title = "Minimap2 App v%s" % VERSION
     ref_path = None
     reads_paths = list()
+    out_folder = None
     out_prefix = None
     minimap2_preset = None
     while True:
@@ -17,7 +18,8 @@ if __name__ == "__main__":
             ('run', "Run"),
             ('ref', "Reference Genome: %s" % ref_path),
             ('reads', "Reads: %s" % None if len(reads_paths) == 0 else ', '.join(str(r) for r in reads_paths)),
-            ('out', "Output Prefix: %s" % out_prefix),
+            ('out_folder', "Output Folder: %s" % out_folder)
+            ('out_prefix', "Output File Prefix: %s" % out_prefix),
             ('preset', "Preset: %s" % minimap2_preset),
             (None, "Quit"),
         ]
@@ -31,10 +33,12 @@ if __name__ == "__main__":
                 message_dialog(title="ERROR", text="Must select at least one reads file")
             elif minimap2_preset is None:
                 message_dialog(title="ERROR", text="Must select a Minimap2 preset")
+            elif out_folder is None:
+                message_dialog(title="ERROR", text="Must select an output folder")
             elif out_prefix is None:
                 message_dialog(title="ERROR", text="Must enter an output file prefix")
             else:
-                command = "minimap2 -a -t 1 -x %s %s %s | samtools view --threads 1 -o %s.bam" % (minimap2_preset, ref_path, ' '.join(reads_paths), out_prefix)
+                command = "minimap2 -a -t 1 -x %s %s %s | samtools view --threads 1 -o %s/%s.bam" % (minimap2_preset, ref_path, ' '.join(reads_paths), out_folder, out_prefix)
                 clear_screen()
                 print("Running: %s" % command)
                 system(command)
