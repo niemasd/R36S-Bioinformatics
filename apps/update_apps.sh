@@ -30,7 +30,7 @@ echo "Found roms path: $ROMS"
 # update apps
 echo "Updating R36S-Bioinformatics apps..."
 rm -rf "$ROMS/bioinformatics" && cp -r "$REPO_PATH/apps" "$ROMS/bioinformatics"
-echo "R36S-Bioinformatics successfully updated :-)"
+echo "R36S-Bioinformatics apps successfully updated :-)"
 
 # reboot system
 echo "Rebooting system in 5 seconds..."
