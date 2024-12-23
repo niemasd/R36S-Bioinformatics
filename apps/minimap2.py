@@ -73,7 +73,7 @@ if __name__ == "__main__":
 
         # select Minimap2 preset
         elif result == 'preset':
-            tmp = select_options_dialog(title="Select Minimap2 preset", values=preset_valus)
+            tmp = select_options_dialog(title="Select Minimap2 preset", values=preset_values)
             if tmp is not None:
                 preset = tmp
 
