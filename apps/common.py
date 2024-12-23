@@ -294,8 +294,7 @@ def text_input_dialog(title=None, text=None, curr_string=''):
                     break
 
 # file selector
-def select_file(curr_path=Path('~').resolve(), select_folder=False):
-    title = "Select File/Folder"
+def select_file(curr_path=Path('~').resolve(), select_folder=False, title="Select File/Folder"):
     while True:
         text = "Current Directory: %s" % curr_path
         values = list()

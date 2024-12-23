@@ -4,10 +4,11 @@ File browser app
 '''
 from common import select_file, view_file_info
 from pathlib import Path
+VERSION = '1.0.0'
 if __name__ == "__main__":
     curr_path = Path('/')
     while True:
-        result = select_file(curr_path=curr_path)
+        result = select_file(title="File Browser v%s", curr_path=curr_path)
         if result is None:
             break
         else:
