@@ -144,7 +144,7 @@ if __name__ == "__main__":
         # run FastTree
         elif result == "run":
             if aln_path is None:
-                message_dialog(title="ERROR", text="Must select a sequences FASTA")
+                message_dialog(title="ERROR", text="Must select a multiple sequence alignment FASTA")
             elif out_folder is None:
                 message_dialog(title="ERROR", text="Must select an output folder")
             elif out_prefix is None:
