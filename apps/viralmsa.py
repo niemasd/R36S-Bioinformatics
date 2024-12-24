@@ -71,7 +71,7 @@ if __name__ == "__main__":
 
         # select whether or not to omit reference from output
         elif result == 'omit_ref':
-            tmp = select_options_dialog(title="Omit reference genome from output?", values=preset_values)
+            tmp = select_options_dialog(title="Omit reference genome from output?", values=omit_ref_values)
             if tmp is not None:
                 omit_ref = tmp
 
