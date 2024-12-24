@@ -178,7 +178,7 @@ if __name__ == "__main__":
                     command = 'zcat "%s" | %s' % (aln_path, command)
                 else:
                     command += (' %s' % aln_path)
-                command += (' > "%s"' % out_folder_prefix)
+                command += (' | gzip -9 > "%s.nwk.gz"' % out_folder_prefix)
                 clear_screen()
                 print("Running: %s" % command)
                 ret = run(command, shell=True, capture_output=True)
