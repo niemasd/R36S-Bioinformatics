@@ -46,7 +46,7 @@ if __name__ == "__main__":
             break
 
         # select sequences
-        elif result == 'sequences':
+        elif result == 'seqs':
             tmp = select_file(title="Select sequences FASTA", curr_path=Path('/'))
             if tmp is not None:
                 reads_path = tmp
