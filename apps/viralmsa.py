@@ -9,7 +9,7 @@ from time import sleep
 VERSION = '1.0.0'
 if __name__ == "__main__":
     # set things up
-    title = "ViralConsensus App v%s" % VERSION
+    title = "ViralMSA App v%s" % VERSION
     seqs_path = None
     ref_path = None
     out_folder = None
@@ -37,7 +37,7 @@ if __name__ == "__main__":
         text += "\n- Sequences: %s" % seqs_path
         text += "\n- Reference Genome: %s" % ref_path
         text += "\n- Output Folder: %s" % out_folder
-        text += "\n- Output File Prefix: %s" % out_prefix
+        text += "\n- Output Prefix: %s" % out_prefix
         text += "\n- Omit Reference from Output? %s" % ('Yes' if omit_ref else 'No')
         result = select_options_dialog(title=title, text=text, values=values)
 
@@ -65,7 +65,7 @@ if __name__ == "__main__":
 
         # select output file prefix
         elif result == 'out_prefix':
-            tmp = text_input_dialog(title="Enter output file prefix")
+            tmp = text_input_dialog(title="Enter output prefix")
             if tmp is not None and len(tmp) != 0:
                 out_prefix = tmp
 
