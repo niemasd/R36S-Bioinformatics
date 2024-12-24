@@ -30,7 +30,7 @@ if __name__ == "__main__":
         ('out_prefix', "Select output file prefix"),
         ('model', "Select substitution model"),
         ('num_cats', "Number of site rate categories (1 = constant)"),
-        ('gamma', "Rescale lengths to optimize Gamma20 likelihood"),
+        ('gamma', "Select whether or not to rescale lengths to optimize Gamma20 likelihood"),
         ('fastest_mode', "Select whether or not to use 'fastest_mode' mode"),
         ('calc_support', "Select whether or not to compute support values"),
         ('use_pseudo', "Select whether or not to use pseudocounts"),
