@@ -5,7 +5,7 @@
 VERSION='1.0.0'
 ES_SYSTEMS_CFG_PATH='/etc/emulationstation/es_systems.cfg'
 ES_SYSTEMS_CFG_BACKUP_PATH="$ES_SYSTEMS_CFG_PATH.r36s-bioinformatics.bak"
-DEPS_LINUX='autoconf build-essential bzip2 cmake g++ gcc git libbz2-dev libc6-dev libcurl4-openssl-dev liblzma-dev libstdc++-9-dev linux-libc-dev make ninja-build python3 python3-pip wget zlib1g-dev'
+DEPS_LINUX='autoconf bison build-essential bzip2 cmake flex g++ gcc git libbz2-dev libc6-dev libcurl4-openssl-dev liblzma-dev libstdc++-9-dev libtool linux-libc-dev make ninja-build python3 python3-pip wget zlib1g-dev'
 DEPS_PYTHON='inputs'
 ES_SYSTEMS_CFG_BIOINFORMATICS_SYSTEM_ENTRY='\t<system>\n\t\t<name>Bioinformatics</name>\n\t\t<fullname>Bioinformatics</fullname>\n\t\t<path>{roms_dir}/bioinformatics/</path>\n\t\t<extension>.sh .SH</extension>\n\t\t<command>sudo chmod 666 /dev/tty1; %ROM% 2>&1 > /dev/tty1; printf "\\033c" >> /dev/tty1</command>\n\t\t<platform>bioinformatics</platform>\n\t\t<theme>bioinformatics</theme>\n\t</system>'
 
@@ -28,31 +28,44 @@ wget -qO- "https://github.com/samtools/htslib/releases/download/1.21/htslib-1.21
 cd htslib-*
 autoreconf -i
 ./configure --prefix=/usr
-make
+make -j4
 sudo make install
 cd ..
 rm -rf htslib-*
 
 # install FastTree
 echo "Installing FastTree..."
-sudo gcc -DUSE_DOUBLE -O3 -finline-functions -funroll-loops -Wall -o /usr/bin/FastTree <(wget -qO- "http://www.microbesonline.org/fasttree/FastTree.c") -lm
+wget -q --no-check-certificate "http://www.microbesonline.org/fasttree/FastTree.c"
+sudo gcc -DUSE_DOUBLE -DOPENMP -fopenmp -O3 -finline-functions -funroll-loops -Wall -o /usr/bin/FastTree FastTree.c -lm
+rm FastTree.c
 
 # install Minimap2
 echo "Installing Minimap2..."
 wget -qO- "https://github.com/lh3/minimap2/archive/refs/tags/v2.28.tar.gz" | tar -zx
 cd minimap2-*
-make arm_neon=1 aarch64=1
+make arm_neon=1 aarch64=1 -j4
 chmod a+x minimap2
 sudo mv minimap2 /usr/bin/minimap2
 cd ..
 rm -rf minimap2-*
+
+# install Newick-Utilities
+echo "Installing Newick-Utilities..."
+git clone https://github.com/tjunier/newick_utils.git
+cd newick_utils
+autoreconf -fi
+./configure --prefix=/usr
+make -j4
+sudo make install
+cd ..
+rm -rf newick_utils
 
 # install samtools
 echo "Installing samtools..."
 wget -qO- "https://github.com/samtools/samtools/releases/download/1.21/samtools-1.21.tar.bz2" | tar -xj
 cd samtools-*
 ./configure --prefix=/usr --without-curses
-make
+make -j4
 sudo make install
 cd ..
 rm -rf samtools-*
@@ -61,7 +74,7 @@ rm -rf samtools-*
 echo "Installing ViralConsensus..."
 wget -qO- "https://github.com/niemasd/ViralConsensus/archive/refs/tags/0.0.6.tar.gz" | tar -zx
 cd ViralConsensus-*
-make
+make -j4
 sudo mv viral_consensus /usr/bin/viral_consensus
 cd ..
 rm -rf ViralConsensus-*
