@@ -49,7 +49,7 @@ if __name__ == "__main__":
         elif result == 'seqs':
             tmp = select_file(title="Select sequences FASTA", curr_path=Path('/'))
             if tmp is not None:
-                reads_path = tmp
+                seqs_path = tmp
 
         # select reference genome
         elif result == 'ref':
