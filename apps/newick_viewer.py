@@ -2,7 +2,7 @@
 '''
 Newick Viewer app
 '''
-from common import select_file
+from common import message_dialog, select_file
 from pathlib import Path
 from subprocess import run
 from time import sleep # TODO DELETE
