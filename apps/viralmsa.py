@@ -87,7 +87,7 @@ if __name__ == "__main__":
                 message_dialog(title="ERROR", text="Must enter an output file prefix")
             else:
                 out_folder_prefix = out_folder / out_prefix
-                command = 'ViralMSA.py -a minimap2 -t 1 -s "%s" -r "%s" -e "dummy@dummy.com" -o "%s"' % (seqs_path, ref_path, out_folder_prefix)
+                command = 'ViralMSA.py -a minimap2 -t 4 -s "%s" -r "%s" -e "dummy@dummy.com" -o "%s"' % (seqs_path, ref_path, out_folder_prefix)
                 if omit_ref:
                     command += ' --omit_ref'
                 clear_screen()
