@@ -20,7 +20,7 @@ if __name__ == "__main__":
             command = 'nw_display "%s"' % result
         try:
             ret = run(command, shell=True, capture_output=True)
-            message_dialog(titile=str(result), text=ret.stdout.decode())
+            message_dialog(title=str(result), text=ret.stdout.decode())
             curr_path = result.parent
         except Exception as e:
             print('\n\n\n\n%s' % e)
