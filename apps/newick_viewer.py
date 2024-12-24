@@ -5,6 +5,7 @@ Newick Viewer app
 from common import select_file
 from pathlib import Path
 from subprocess import run
+from time import sleep # TODO DELETE
 VERSION = '1.0.0'
 if __name__ == "__main__":
     curr_path = Path('/')
@@ -17,6 +18,11 @@ if __name__ == "__main__":
             command = 'zcat "%s" | nw_display -' % result
         else:
             command = 'nw_display "%s"' % result
-        ret = run(command, shell=True, capture_output=True)
-        message_dialog(titile=str(result), text=ret.stdout.decode())
-        curr_path = result.parent
+        try:
+            ret = run(command, shell=True, capture_output=True)
+            message_dialog(titile=str(result), text=ret.stdout.decode())
+            curr_path = result.parent
+        except Exception as e:
+            print('\n\n\n\n%s' % e)
+            sleep(4)
+            exit()
